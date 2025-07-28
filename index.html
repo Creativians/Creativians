@@ -7,7 +7,6 @@
     
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Luxury Fonts from Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Manrope:wght@400;500&display=swap" rel="stylesheet">
@@ -70,10 +69,10 @@
         }
 
         .animate-flip-in {
-            animation: flipIn 1.5s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+            animation: flipIn 1.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
         .animate-flip-out {
-            animation: flipOut 1.2s cubic-bezier(0.6, 0.2, 0.1, 1) forwards;
+            animation: flipOut 1.3s cubic-bezier(0.7, 0, 0.84, 0) forwards;
         }
 
         .animatable {
@@ -93,7 +92,7 @@
         .scroll-reveal {
             opacity: 0;
             transform: translateY(40px);
-            transition: opacity 1s cubic-bezier(0.165, 0.84, 0.44, 1), transform 1s cubic-bezier(0.165, 0.84, 0.44, 1);
+            transition: opacity 1.2s cubic-bezier(0.165, 0.84, 0.44, 1), transform 1.2s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
         .scroll-reveal.visible { opacity: 1; transform: translateY(0); }
         
@@ -112,7 +111,7 @@
         .modal-content {
             background: #111; border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 1rem; padding: 2rem; width: 90%;
-            max-width: 1000px; /* Increased max-width for better grid display */
+            max-width: 1000px;
             max-height: 90vh; overflow-y: auto;
             position: relative; transform: scale(0.95);
             transition: transform 0.3s ease-in-out;
@@ -138,10 +137,10 @@
             position: absolute;
             top: 50%;
             left: 50%;
-            width: 177.77777778vh; /* 100 * 16 / 9 */
+            width: 177.77777778vh;
             min-width: 100%;
             min-height: 100%;
-            height: 56.25vw; /* 100 * 9 / 16 */
+            height: 56.25vw;
             transform: translate(-50%, -50%);
         }
         .testimonial-text {
@@ -190,7 +189,7 @@
             padding: 0 1.5rem;
         }
         .faq-item.active .faq-answer {
-            max-height: 300px; /* Adjust as needed */
+            max-height: 300px;
             padding: 0 1.5rem 1.5rem;
         }
         .faq-icon {
@@ -337,10 +336,9 @@
             <div class="container mx-auto px-6 scroll-reveal">
                 <div class="text-center mb-16"><h2 class="text-4xl md:text-5xl font-bold text-white font-heading">What Our Clients Say</h2></div>
                 <div class="testimonial-carousel max-w-4xl mx-auto">
-                    <!-- Slide 1 -->
                     <div class="testimonial-slide active">
                         <div class="video-reel-container animatable">
-                             <iframe src="https://www.youtube.com/embed/Gx-5cbBzf5Y?autoplay=1&mute=1&loop=1&controls=0&playlist=Gx-5cbBzf5Y" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                             <iframe src="https://www.youtube.com/embed/Gx-5cbBzf5Y?controls=1&rel=0" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                         </div>
                         <div class="mt-8 max-w-2xl testimonial-text">
                             <p class="text-xl text-gray-200 italic leading-relaxed font-heading">"The 3D work is simply unparalleled. They didn't just make a video; they built an experience."</p>
@@ -348,10 +346,9 @@
                             <p class="text-sm text-purple-300">Head of Innovation, FutureTech</p>
                         </div>
                     </div>
-                    <!-- Slide 2 -->
                     <div class="testimonial-slide">
                         <div class="video-reel-container animatable">
-                            <iframe src="https://www.youtube.com/embed/Gx-5cbBzf5Y?autoplay=1&mute=1&loop=1&controls=0&playlist=Gx-5cbBzf5Y" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                            <iframe src="https://www.youtube.com/embed/Gx-5cbBzf5Y?controls=1&rel=0" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                         </div>
                         <div class="mt-8 max-w-2xl testimonial-text">
                             <p class="text-xl text-gray-200 italic leading-relaxed font-heading">"The motion graphics package was a game-changer. It gave our content a consistent, high-end feel across all platforms."</p>
@@ -359,10 +356,9 @@
                             <p class="text-sm text-purple-300">CMO, QuantumLeap</p>
                         </div>
                     </div>
-                    <!-- Slide 3 -->
                     <div class="testimonial-slide">
                         <div class="video-reel-container animatable">
-                            <iframe src="https://www.youtube.com/embed/Gx-5cbBzf5Y?autoplay=1&mute=1&loop=1&controls=0&playlist=Gx-5cbBzf5Y" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                            <iframe src="https://www.youtube.com/embed/Gx-5cbBzf5Y?controls=1&rel=0" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                         </div>
                         <div class="mt-8 max-w-2xl testimonial-text">
                             <p class="text-xl text-gray-200 italic leading-relaxed font-heading">"Working with Creativians is like having a secret weapon. Their creativity is off the charts, and they're also incredibly strategic."</p>
@@ -370,7 +366,6 @@
                             <p class="text-sm text-purple-300">Founder, Catalyst Media</p>
                         </div>
                     </div>
-                    <!-- Navigation -->
                     <div class="testimonial-nav">
                         <button id="prev-testimonial"><svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg></button>
                         <button id="next-testimonial"><svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></button>
@@ -398,7 +393,6 @@
                     <h2 class="text-4xl md:text-5xl font-bold text-white font-heading mt-2">Know What We Do Differently</h2>
                 </div>
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
-                    <!-- Creativians Card -->
                     <div class="comparison-card creativians-card">
                         <div class="relative z-10">
                             <h3 class="text-3xl font-bold font-heading text-white mb-6">Creativians</h3>
@@ -411,7 +405,6 @@
                             </ul>
                         </div>
                     </div>
-                    <!-- Other Agencies Card -->
                     <div class="comparison-card other-agencies-card">
                         <h3 class="text-3xl font-bold font-heading text-gray-500 mb-6">Other Agencies</h3>
                         <ul class="comparison-list text-gray-500">
@@ -445,7 +438,6 @@
                     <h2 class="text-4xl md:text-5xl font-bold text-white font-heading mt-2">Questions You May Ask</h2>
                 </div>
                 <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- FAQ Column 1 -->
                     <div class="space-y-6">
                         <div class="faq-item">
                             <div class="faq-question">
@@ -469,7 +461,6 @@
                             <div class="faq-answer"><p class="text-gray-400">Our process is built on collaboration and clear communication to ensure we align with your goals. We offer revision rounds to fine-tune the final product. While specific market results can't be guaranteed, we guarantee a professionally crafted video that meets the brief and our high quality standards.</p></div>
                         </div>
                     </div>
-                    <!-- FAQ Column 2 -->
                     <div class="space-y-6">
                         <div class="faq-item">
                             <div class="faq-question">
@@ -508,7 +499,7 @@
     </footer>
 
     <div id="portfolio-modal"><div class="modal-content"><span class="modal-close-btn">&times;</span><div id="modal-body" class="text-white"></div></div></div>
-
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
         // --- Setup ---
@@ -585,12 +576,11 @@
             currentSlide = index;
         }
 
-        function next() { showSlide((currentSlide + 1) % slides.length); }
-        function prev() { showSlide((currentSlide - 1 + slides.length) % slides.length); }
+        function nextTestimonial() { showSlide((currentSlide + 1) % slides.length); }
+        function prevTestimonial() { showSlide((currentSlide - 1 + slides.length) % slides.length); }
 
-        document.getElementById('prev-testimonial').addEventListener('click', prev);
-        document.getElementById('next-testimonial').addEventListener('click', next);
-        setInterval(next, 8000);
+        document.getElementById('prev-testimonial').addEventListener('click', prevTestimonial);
+        document.getElementById('next-testimonial').addEventListener('click', nextTestimonial);
 
         const firstReel = slides[0].querySelector('.video-reel-container');
         animationObserver.observe(firstReel);
@@ -611,9 +601,9 @@
                 const data = portfolioData[category];
                 let projectsHtml = '';
                 if (category === 'reels') {
-                    projectsHtml = `<div class="grid grid-cols-2 sm:grid-cols-4 gap-4">${data.projects.map(p => `<div class="mt-4"><div class="video-reel-container mx-auto" style="width: 180px; height: 320px;"><iframe src="https://www.youtube.com/embed/${p.videoId}?autoplay=1&mute=1&loop=1&controls=0&playlist=${p.videoId}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div><h4 class="text-lg font-bold text-purple-300 mt-2 font-heading">${p.name}</h4></div>`).join('')}</div>`;
+                    projectsHtml = `<div class="grid grid-cols-2 sm:grid-cols-4 gap-4">${data.projects.map(p => `<div class="mt-4"><div class="video-reel-container mx-auto" style="width: 180px; height: 320px;"><iframe src="https://www.youtube.com/embed/${p.videoId}?controls=1&rel=0" frameborder="0" allowfullscreen></iframe></div><h4 class="text-lg font-bold text-purple-300 mt-2 font-heading">${p.name}</h4></div>`).join('')}</div>`;
                 } else {
-                    projectsHtml = `<div class="grid grid-cols-1 sm:grid-cols-2 gap-6">${data.projects.map(p => `<div class="mt-4"><div class="relative w-full" style="padding-bottom: 56.25%"><iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/embed/${p.videoId}?controls=0&showinfo=0&rel=0" frameborder="0" allowfullscreen></iframe></div><h4 class="text-lg font-bold text-purple-300 mt-2 font-heading">${p.name}</h4></div>`).join('')}</div>`;
+                    projectsHtml = `<div class="grid grid-cols-1 sm:grid-cols-2 gap-6">${data.projects.map(p => `<div class="mt-4"><div class="relative w-full" style="padding-bottom: 56.25%"><iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/embed/${p.videoId}?controls=1&rel=0" frameborder="0" allowfullscreen></iframe></div><h4 class="text-lg font-bold text-purple-300 mt-2 font-heading">${p.name}</h4></div>`).join('')}</div>`;
                 }
                 modalBody.innerHTML = `<h2 class="text-3xl font-bold mb-4 font-heading">${data.title}</h2>${projectsHtml}`;
                 modal.classList.add('active');
