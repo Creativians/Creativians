@@ -7,20 +7,57 @@
     
     <script src="https://cdn.tailwindcss.com"></script>
     
+    <!-- Luxury Fonts from Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Manrope:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Added Hind Siliguri for Bengali -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Manrope:wght@400;500&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
         body {
             font-family: 'Manrope', sans-serif;
-            background-color: #0a0a0a;
-            color: #e5e5e5;
+            background-color: var(--bg-color);
+            color: var(--text-color);
             overflow-x: hidden;
+            transition: background-color 0.5s ease, color 0.5s ease;
         }
         .font-heading {
             font-family: 'Cormorant Garamond', serif;
             letter-spacing: 0.03em;
+        }
+        .lang-bn, .lang-bn .font-heading, body.lang-bn .font-heading {
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+
+        :root {
+            --bg-color: #0a0a0a;
+            --text-color: #e5e5e5;
+            --text-muted: #a0aec0;
+            --card-bg: #1a1a1a;
+            --border-color: rgba(255, 255, 255, 0.05);
+            --header-bg: rgba(10, 10, 15, 0.6);
+            --section-gradient: radial-gradient(ellipse at bottom, rgba(13, 5, 32, 0.6) 0%, rgba(10, 10, 10, 0.9) 70%);
+            --aurora-base: #110f19;
+            --other-agency-card-bg: #111;
+            --other-agency-border: #222;
+            --other-agency-text: #6b7280;
+            --star-color: 0xaaaaaa;
+        }
+
+        body.light-theme {
+            --bg-color: #f9fafb;
+            --text-color: #1f2937;
+            --text-muted: #6b7280;
+            --card-bg: #ffffff;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --header-bg: rgba(255, 255, 255, 0.6);
+            /* NEW: Subtle animated gradient for light theme */
+            --section-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            --aurora-base: #f0f2ff;
+            --other-agency-card-bg: #f3f4f6;
+            --other-agency-border: #e5e7eb;
+            --other-agency-text: #4b5563;
+            --star-color: 0x374151;
         }
         
         #bg-canvas {
@@ -33,7 +70,8 @@
         }
 
         .section-gradient {
-            background: radial-gradient(ellipse at bottom, rgba(13, 5, 32, 0.6) 0%, rgba(10, 10, 10, 0.9) 70%);
+            background: var(--section-gradient);
+            transition: background 0.5s ease;
         }
         
         .interactive-element {
@@ -46,14 +84,14 @@
         
         .work-card {
             cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.5s ease;
+            background-color: var(--card-bg);
         }
         .work-card:hover {
              transform: translateY(-8px) scale(1.02);
              box-shadow: 0 15px 30px rgba(93, 26, 230, 0.2);
         }
 
-        /* Slower, more graceful animations */
         @keyframes flipIn {
             from { transform: rotateY(90deg) scale(0.9); opacity: 0; }
             to { transform: rotateY(0deg) scale(1); opacity: 1; }
@@ -66,6 +104,11 @@
         @keyframes slideInRight {
             from { transform: translateX(100%); opacity: 0; }
             to { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes fadeInModal {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         .animate-flip-in {
@@ -109,19 +152,19 @@
         }
         #portfolio-modal.active { display: flex; opacity: 1; }
         .modal-content {
-            background: #111; border: 1px solid rgba(255, 255, 255, 0.1);
+            background: var(--card-bg); border: 1px solid var(--border-color);
             border-radius: 1rem; padding: 2rem; width: 90%;
             max-width: 1000px;
             max-height: 90vh; overflow-y: auto;
             position: relative; transform: scale(0.95);
-            transition: transform 0.3s ease-in-out;
+            transition: transform 0.3s ease-in-out, background-color 0.5s ease;
         }
         #portfolio-modal.active .modal-content { transform: scale(1); }
         .modal-close-btn {
-            position: absolute; top: 1rem; right: 1rem; font-size: 2rem; color: #aaa;
+            position: absolute; top: 1rem; right: 1rem; font-size: 2rem; color: var(--text-muted);
             cursor: pointer; line-height: 1; transition: color 0.3s ease;
         }
-        .modal-close-btn:hover { color: #fff; }
+        .modal-close-btn:hover { color: var(--text-color); }
 
         .testimonial-carousel { position: relative; perspective: 1000px; }
         .testimonial-slide {
@@ -167,13 +210,13 @@
         }
 
         .faq-item {
-            background-color: #1a1a1a;
+            background-color: var(--card-bg);
             border-radius: 0.75rem;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
             transition: background-color 0.3s ease;
         }
         .faq-item.active {
-            background-color: #2a2a2a;
+            background-color: var(--other-agency-card-bg);
         }
         .faq-question {
             cursor: pointer;
@@ -203,9 +246,10 @@
             border-radius: 1.5rem;
             padding: 2.5rem;
             height: 100%;
+            transition: background-color 0.5s ease, border-color 0.5s ease;
         }
         .creativians-card {
-            background: #1a1a1a;
+            background: var(--card-bg);
             border: 1px solid rgba(168, 85, 247, 0.3);
             position: relative;
             overflow: hidden;
@@ -229,8 +273,8 @@
             to { transform: rotate(360deg); }
         }
         .other-agencies-card {
-            background: #111;
-            border: 1px solid #222;
+            background: var(--other-agency-card-bg);
+            border: 1px solid var(--other-agency-border);
         }
         .comparison-list li {
             display: flex;
@@ -245,7 +289,8 @@
 
 
         .aurora-cta {
-            position: relative; overflow: hidden; background-color: #110f19;
+            position: relative; overflow: hidden; background-color: var(--aurora-base);
+            transition: background-color 0.5s ease;
         }
         .aurora-cta::before, .aurora-cta::after {
             content: ''; position: absolute; border-radius: 50%;
@@ -261,36 +306,106 @@
         }
         @keyframes move-blob-1 { from { transform: translate(0, 0) rotate(0deg); } to { transform: translate(100px, 50px) rotate(180deg); } }
         @keyframes move-blob-2 { from { transform: translate(0, 0) rotate(0deg); } to { transform: translate(-80px, -40px) rotate(-180deg); } }
+        
+        #welcome-modal {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: rgba(0,0,0,0.8);
+            backdrop-filter: blur(10px);
+            z-index: 200;
+            display: none; /* Hidden by default */
+            align-items: center; justify-content: center;
+            animation: fadeInModal 0.5s ease forwards;
+        }
+        .preference-card {
+            background-color: var(--card-bg);
+            border-radius: 1rem;
+            padding: 2.5rem;
+            width: 90%;
+            max-width: 500px;
+            border: 1px solid var(--border-color);
+        }
+        .preference-btn {
+            border: 2px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+        .preference-btn.selected {
+            border-color: #8b5cf6; /* Purple */
+            background-color: rgba(139, 92, 246, 0.1);
+        }
+        /* NEW: Fix for Bengali hero text overlap */
+        .lang-bn .hero-content-wrapper {
+            padding-top: 4rem; /* Add padding to push it down */
+        }
     </style>
 </head>
-<body class="bg-black">
+<body>
 
     <canvas id="bg-canvas"></canvas>
 
-    <header class="fixed top-0 left-0 right-0 z-50 bg-black/30 backdrop-blur-lg border-b border-white/10">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" class="text-2xl font-bold text-white font-heading">Creativians</a>
-            <nav class="hidden md:flex items-center space-x-8">
-                <a href="#reviews" class="text-gray-300 hover:text-white transition-colors duration-300">Reviews</a>
-                <a href="#work" class="text-gray-300 hover:text-white transition-colors duration-300">Work</a>
-                <a href="#why-us" class="text-gray-300 hover:text-white transition-colors duration-300">Why Us</a>
-                <a href="#process" class="text-gray-300 hover:text-white transition-colors duration-300">Process</a>
-                <a href="#faq" class="text-gray-300 hover:text-white transition-colors duration-300">FAQ</a>
-            </nav>
-            <a href="https://wa.me/8801948303128" target="_blank" class="hidden md:inline-block bg-purple-600 hover:bg-purple-500 text-white font-semibold py-2 px-5 rounded-lg interactive-element">
-                Chat with Us
-            </a>
-            <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+    <!-- NEW: Welcome Modal -->
+    <div id="welcome-modal">
+        <div class="preference-card text-center">
+            <h2 class="text-3xl font-bold font-heading mb-4" data-lang-modal="welcome_title">Welcome to Creativians</h2>
+            <p class="text-text-muted mb-8" data-lang-modal="welcome_subtitle">Please select your preferred experience.</p>
+            
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold mb-3" data-lang-modal="choose_lang">Choose Language</h3>
+                <div class="flex justify-center gap-4">
+                    <button class="preference-btn w-full py-2 rounded-lg" data-lang-pref="en">English</button>
+                    <button class="preference-btn w-full py-2 rounded-lg lang-bn" data-lang-pref="bn">বাংলা</button>
+                </div>
+            </div>
+
+            <div class="mb-8">
+                <h3 class="text-lg font-semibold mb-3" data-lang-modal="choose_theme">Choose Theme</h3>
+                <div class="flex justify-center gap-4">
+                    <button class="preference-btn w-full py-2 rounded-lg" data-theme-pref="dark">Dark</button>
+                    <button class="preference-btn w-full py-2 rounded-lg" data-theme-pref="light">Light</button>
+                </div>
+            </div>
+
+            <button id="save-preferences-btn" class="w-full bg-purple-600 hover:bg-purple-500 text-white font-bold py-3 px-6 rounded-lg text-lg interactive-element" data-lang-modal="save_button">
+                Continue
             </button>
         </div>
-        <div id="mobile-menu" class="hidden md:hidden px-6 pt-2 pb-4 border-t border-white/10">
-             <a href="#reviews" class="block py-2 text-gray-300 hover:text-white">Reviews</a>
-            <a href="#work" class="block py-2 text-gray-300 hover:text-white">Work</a>
-            <a href="#why-us" class="block py-2 text-gray-300 hover:text-white">Why Us</a>
-            <a href="#process" class="block py-2 text-gray-300 hover:text-white">Process</a>
-            <a href="#faq" class="block py-2 text-gray-300 hover:text-white">FAQ</a>
-            <a href="https://wa.me/8801948303128" target="_blank" class="block mt-4 bg-purple-600 hover:bg-purple-500 text-white font-semibold py-2 px-5 rounded-lg text-center">Chat with Us</a>
+    </div>
+
+    <header class="fixed top-0 left-0 right-0 z-50 bg-header-bg backdrop-blur-lg border-b border-border-color transition-colors duration-500">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold font-heading" data-lang="creativians">Creativians</a>
+            <nav class="hidden md:flex items-center space-x-6">
+                <a href="#reviews" class="text-text-muted hover:text-text-color transition-colors duration-300" data-lang="nav_reviews">Reviews</a>
+                <a href="#work" class="text-text-muted hover:text-text-color transition-colors duration-300" data-lang="nav_work">Work</a>
+                <a href="#why-us" class="text-text-muted hover:text-text-color transition-colors duration-300" data-lang="nav_why_us">Why Us</a>
+                <a href="#process" class="text-text-muted hover:text-text-color transition-colors duration-300" data-lang="nav_process">Process</a>
+                <a href="#faq" class="text-text-muted hover:text-text-color transition-colors duration-300" data-lang="nav_faq">FAQ</a>
+            </nav>
+            <div class="flex items-center space-x-4">
+                <a href="https://wa.me/8801948303128" target="_blank" class="hidden sm:inline-block bg-purple-600 hover:bg-purple-500 text-white font-semibold py-2 px-5 rounded-lg interactive-element" data-lang="chat_with_us">
+                    Chat with Us
+                </a>
+                <!-- LANGUAGE TOGGLE -->
+                <button id="lang-toggle" class="p-2 rounded-full text-text-muted hover:text-text-color hover:bg-card-bg transition-colors duration-300 font-bold text-sm">
+                    BN
+                </button>
+                <!-- THEME TOGGLE -->
+                <button id="theme-toggle" class="p-2 rounded-full text-text-muted hover:text-text-color hover:bg-card-bg transition-colors duration-300">
+                    <svg id="theme-icon-sun" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                    <svg id="theme-icon-moon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                </button>
+                <button id="mobile-menu-button" class="md:hidden text-text-color focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden px-6 pt-2 pb-4 border-t border-border-color">
+             <a href="#reviews" class="block py-2 text-text-muted hover:text-text-color" data-lang="nav_reviews_mob">Reviews</a>
+            <a href="#work" class="block py-2 text-text-muted hover:text-text-color" data-lang="nav_work_mob">Work</a>
+            <a href="#why-us" class="block py-2 text-text-muted hover:text-text-color" data-lang="nav_why_us_mob">Why Us</a>
+            <a href="#process" class="block py-2 text-text-muted hover:text-text-color" data-lang="nav_process_mob">Process</a>
+            <a href="#faq" class="block py-2 text-text-muted hover:text-text-color" data-lang="nav_faq_mob">FAQ</a>
+            <a href="https://wa.me/8801948303128" target="_blank" class="block mt-4 bg-purple-600 hover:bg-purple-500 text-white font-semibold py-2 px-5 rounded-lg text-center" data-lang="chat_with_us_mob">Chat with Us</a>
         </div>
     </header>
 
@@ -299,14 +414,15 @@
             <div class="container mx-auto px-6">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
                     <div class="text-center md:text-left">
-                        <div class="scroll-reveal">
-                            <h1 class="text-5xl md:text-7xl font-extrabold text-white leading-tight mb-6 font-heading">
+                        <!-- Added hero-content-wrapper for Bengali fix -->
+                        <div class="scroll-reveal hero-content-wrapper">
+                            <h1 class="text-5xl md:text-7xl font-extrabold leading-tight mb-6 font-heading" data-lang="hero_title">
                                 Get Unbelievable Success <br/> Using <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400">Quality Video Content</span>.
                             </h1>
-                            <p class="text-lg md:text-xl text-gray-300 mb-10">
+                            <p class="text-lg md:text-xl text-text-muted mb-10" data-lang="hero_subtitle">
                                 A digital agency specializing in high-impact motion graphics, 3D animation, and cinematic VFX that drive results.
                             </p>
-                            <a href="#contact" class="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold py-4 px-8 rounded-lg text-lg interactive-element">
+                            <a href="#contact" class="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold py-4 px-8 rounded-lg text-lg interactive-element" data-lang="hero_cta">
                                 Launch Your Vision
                             </a>
                         </div>
@@ -334,41 +450,45 @@
         
         <section id="reviews" class="py-20 md:py-32 section-gradient">
             <div class="container mx-auto px-6 scroll-reveal">
-                <div class="text-center mb-16"><h2 class="text-4xl md:text-5xl font-bold text-white font-heading">What Our Clients Say</h2></div>
+                <div class="text-center mb-16"><h2 class="text-4xl md:text-5xl font-bold font-heading" data-lang="reviews_title">What Our Clients Say</h2></div>
                 <div class="testimonial-carousel max-w-4xl mx-auto">
+                    <!-- Slide 1 -->
                     <div class="testimonial-slide active">
                         <div class="video-reel-container animatable">
-                             <iframe src="https://www.youtube.com/embed/Gx-5cbBzf5Y?controls=1&rel=0" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                             <iframe id="testimonial-video-0" src="https://www.youtube.com/embed/Gx-5cbBzf5Y?enablejsapi=1&controls=1&rel=0" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                         </div>
                         <div class="mt-8 max-w-2xl testimonial-text">
-                            <p class="text-xl text-gray-200 italic leading-relaxed font-heading">"The 3D work is simply unparalleled. They didn't just make a video; they built an experience."</p>
-                            <p class="font-bold text-white text-lg mt-4">Samantha Chen</p>
-                            <p class="text-sm text-purple-300">Head of Innovation, FutureTech</p>
+                            <p class="text-xl italic leading-relaxed font-heading" data-lang="review_1_quote">"The 3D work is simply unparalleled. They didn't just make a video; they built an experience."</p>
+                            <p class="font-bold text-lg mt-4" data-lang="review_1_name">Samantha Chen</p>
+                            <p class="text-sm text-purple-400" data-lang="review_1_title">Head of Innovation, FutureTech</p>
                         </div>
                     </div>
+                    <!-- Slide 2 -->
                     <div class="testimonial-slide">
                         <div class="video-reel-container animatable">
-                            <iframe src="https://www.youtube.com/embed/Gx-5cbBzf5Y?controls=1&rel=0" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            <iframe id="testimonial-video-1" src="https://www.youtube.com/embed/Gx-5cbBzf5Y?enablejsapi=1&controls=1&rel=0" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                         </div>
                         <div class="mt-8 max-w-2xl testimonial-text">
-                            <p class="text-xl text-gray-200 italic leading-relaxed font-heading">"The motion graphics package was a game-changer. It gave our content a consistent, high-end feel across all platforms."</p>
-                            <p class="font-bold text-white text-lg mt-4">Marcus Thorne</p>
-                            <p class="text-sm text-purple-300">CMO, QuantumLeap</p>
+                            <p class="text-xl italic leading-relaxed font-heading" data-lang="review_2_quote">"The motion graphics package was a game-changer. It gave our content a consistent, high-end feel across all platforms."</p>
+                            <p class="font-bold text-lg mt-4" data-lang="review_2_name">Marcus Thorne</p>
+                            <p class="text-sm text-purple-400" data-lang="review_2_title">CMO, QuantumLeap</p>
                         </div>
                     </div>
+                    <!-- Slide 3 -->
                     <div class="testimonial-slide">
                         <div class="video-reel-container animatable">
-                            <iframe src="https://www.youtube.com/embed/Gx-5cbBzf5Y?controls=1&rel=0" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            <iframe id="testimonial-video-2" src="https://www.youtube.com/embed/Gx-5cbBzf5Y?enablejsapi=1&controls=1&rel=0" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                         </div>
                         <div class="mt-8 max-w-2xl testimonial-text">
-                            <p class="text-xl text-gray-200 italic leading-relaxed font-heading">"Working with Creativians is like having a secret weapon. Their creativity is off the charts, and they're also incredibly strategic."</p>
-                            <p class="font-bold text-white text-lg mt-4">Elena Rodriguez</p>
-                            <p class="text-sm text-purple-300">Founder, Catalyst Media</p>
+                            <p class="text-xl italic leading-relaxed font-heading" data-lang="review_3_quote">"Working with Creativians is like having a secret weapon. Their creativity is off the charts, and they're also incredibly strategic."</p>
+                            <p class="font-bold text-lg mt-4" data-lang="review_3_name">Elena Rodriguez</p>
+                            <p class="text-sm text-purple-400" data-lang="review_3_title">Founder, Catalyst Media</p>
                         </div>
                     </div>
+                    <!-- Navigation -->
                     <div class="testimonial-nav">
-                        <button id="prev-testimonial"><svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg></button>
-                        <button id="next-testimonial"><svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></button>
+                        <button id="prev-testimonial"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg></button>
+                        <button id="next-testimonial"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></button>
                     </div>
                 </div>
             </div>
@@ -376,12 +496,12 @@
 
         <section id="work" class="py-20 md:py-32 section-gradient">
             <div class="container mx-auto px-6 scroll-reveal">
-                <div class="text-center mb-16"><h2 class="text-4xl md:text-5xl font-bold text-white font-heading">Our Creations</h2><p class="text-gray-400 mt-4 max-w-2xl mx-auto">Explore the intersection of art and technology. Click a category to see more.</p></div>
+                <div class="text-center mb-16"><h2 class="text-4xl md:text-5xl font-bold font-heading" data-lang="work_title">Our Creations</h2><p class="text-text-muted mt-4 max-w-2xl mx-auto" data-lang="work_subtitle">Explore the intersection of art and technology. Click a category to see more.</p></div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="work-card bg-gray-900/50 rounded-lg overflow-hidden group" data-category="youtube"><img src="https://placehold.co/800x450/c4302b/ffffff?text=YouTube+Videos" alt="YouTube Videos" class="w-full h-64 object-cover"><div class="p-6"><h3 class="text-xl font-bold text-white font-heading">YouTube Videos</h3></div></div>
-                    <div class="work-card bg-gray-900/50 rounded-lg overflow-hidden group" data-category="advertisement"><img src="https://placehold.co/800x450/4a00e0/ffffff?text=Advertisements" alt="Advertisement" class="w-full h-64 object-cover"><div class="p-6"><h3 class="text-xl font-bold text-white font-heading">Advertisement</h3></div></div>
-                    <div class="work-card bg-gray-900/50 rounded-lg overflow-hidden group" data-category="reels"><img src="https://placehold.co/800x450/00CED1/ffffff?text=Reels" alt="Reels" class="w-full h-64 object-cover"><div class="p-6"><h3 class="text-xl font-bold text-white font-heading">Reels</h3></div></div>
-                    <div class="work-card bg-gray-900/50 rounded-lg overflow-hidden group" data-category="filmmaking"><img src="https://placehold.co/800x450/483D8B/ffffff?text=Film+Making" alt="Film Making" class="w-full h-64 object-cover"><div class="p-6"><h3 class="text-xl font-bold text-white font-heading">Film Making</h3></div></div>
+                    <div class="work-card" data-category="youtube"><img src="https://placehold.co/800x450/c4302b/ffffff?text=YouTube+Videos" alt="YouTube Videos" class="w-full h-64 object-cover"><div class="p-6"><h3 class="text-xl font-bold font-heading" data-lang="work_cat_1">YouTube Videos</h3></div></div>
+                    <div class="work-card" data-category="advertisement"><img src="https://placehold.co/800x450/4a00e0/ffffff?text=Advertisements" alt="Advertisement" class="w-full h-64 object-cover"><div class="p-6"><h3 class="text-xl font-bold font-heading" data-lang="work_cat_2">Advertisement</h3></div></div>
+                    <div class="work-card" data-category="reels"><img src="https://placehold.co/800x450/00CED1/ffffff?text=Reels" alt="Reels" class="w-full h-64 object-cover"><div class="p-6"><h3 class="text-xl font-bold font-heading" data-lang="work_cat_3">Reels</h3></div></div>
+                    <div class="work-card" data-category="filmmaking"><img src="https://placehold.co/800x450/483D8B/ffffff?text=Film+Making" alt="Film Making" class="w-full h-64 object-cover"><div class="p-6"><h3 class="text-xl font-bold font-heading" data-lang="work_cat_4">Film Making</h3></div></div>
                 </div>
             </div>
         </section>
@@ -389,30 +509,30 @@
         <section id="why-us" class="py-20 md:py-32 section-gradient">
             <div class="container mx-auto px-6 scroll-reveal">
                 <div class="text-center mb-16">
-                    <p class="text-purple-400 font-semibold tracking-widest">WHY CHOOSE US</p>
-                    <h2 class="text-4xl md:text-5xl font-bold text-white font-heading mt-2">Know What We Do Differently</h2>
+                    <p class="text-purple-400 font-semibold tracking-widest" data-lang="why_us_tag">WHY CHOOSE US</p>
+                    <h2 class="text-4xl md:text-5xl font-bold font-heading mt-2" data-lang="why_us_title">Know What We Do Differently</h2>
                 </div>
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
                     <div class="comparison-card creativians-card">
                         <div class="relative z-10">
-                            <h3 class="text-3xl font-bold font-heading text-white mb-6">Creativians</h3>
-                            <ul class="comparison-list text-gray-300">
-                                <li><svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>In-house Team of Creative Experts</span></li>
-                                <li><svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Dedicated to Results & ROI</span></li>
-                                <li><svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Proven Strategic Content Funnels</span></li>
-                                <li><svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Personalized, White-Glove Service</span></li>
-                                <li><svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>24/7 Support, Anytime You Need Us</span></li>
+                            <h3 class="text-3xl font-bold font-heading mb-6" data-lang="creativians">Creativians</h3>
+                            <ul class="comparison-list">
+                                <li><svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span data-lang="why_us_1">In-house Team of Creative Experts</span></li>
+                                <li><svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span data-lang="why_us_2">Dedicated to Results & ROI</span></li>
+                                <li><svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span data-lang="why_us_3">Proven Strategic Content Funnels</span></li>
+                                <li><svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span data-lang="why_us_4">Personalized, White-Glove Service</span></li>
+                                <li><svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span data-lang="why_us_5">24/7 Support, Anytime You Need Us</span></li>
                             </ul>
                         </div>
                     </div>
                     <div class="comparison-card other-agencies-card">
-                        <h3 class="text-3xl font-bold font-heading text-gray-500 mb-6">Other Agencies</h3>
-                        <ul class="comparison-list text-gray-500">
-                            <li><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg><span>Unreliable freelancers with slow turnarounds.</span></li>
-                            <li><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg><span>Edits that fail to convert or perform.</span></li>
-                            <li><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg><span>Lack of proper distribution systems.</span></li>
-                            <li><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg><span>Limited revisions with no client-focused approach.</span></li>
-                            <li><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg><span>Guesswork instead of data-driven decisions.</span></li>
+                        <h3 class="text-3xl font-bold font-heading text-other-agency-text mb-6" data-lang="other_agencies">Other Agencies</h3>
+                        <ul class="comparison-list text-other-agency-text">
+                            <li><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg><span data-lang="other_agencies_1">Unreliable freelancers with slow turnarounds.</span></li>
+                            <li><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg><span data-lang="other_agencies_2">Edits that fail to convert or perform.</span></li>
+                            <li><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg><span data-lang="other_agencies_3">Lack of proper distribution systems.</span></li>
+                            <li><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg><span data-lang="other_agencies_4">Limited revisions with no client-focused approach.</span></li>
+                            <li><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg><span data-lang="other_agencies_5">Guesswork instead of data-driven decisions.</span></li>
                         </ul>
                     </div>
                 </div>
@@ -421,12 +541,12 @@
         
         <section id="process" class="py-20 md:py-32 section-gradient">
              <div class="container mx-auto px-6 scroll-reveal">
-                <div class="text-center mb-16"><h2 class="text-4xl md:text-5xl font-bold text-white font-heading">Our Creative Workflow</h2><p class="text-gray-400 mt-4 max-w-2xl mx-auto">A proven process for turning ambitious ideas into digital masterpieces.</p></div>
+                <div class="text-center mb-16"><h2 class="text-4xl md:text-5xl font-bold font-heading" data-lang="process_title">Our Creative Workflow</h2><p class="text-text-muted mt-4 max-w-2xl mx-auto" data-lang="process_subtitle">A proven process for turning ambitious ideas into digital masterpieces.</p></div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12 text-center" style="perspective: 1000px;">
-                    <div class="process-step animatable" style="--delay: 100ms;"><div class="process-icon bg-purple-600/10 text-purple-300 w-20 h-20 rounded-xl mx-auto flex items-center justify-center text-3xl font-bold mb-4 border-2 border-purple-400/20">1</div><h3 class="text-xl font-bold text-white mb-2 font-heading">Immersion</h3><p class="text-gray-400">We absorb your vision and goals.</p></div>
-                    <div class="process-step animatable" style="--delay: 200ms;"><div class="process-icon bg-purple-600/10 text-purple-300 w-20 h-20 rounded-xl mx-auto flex items-center justify-center text-3xl font-bold mb-4 border-2 border-purple-400/20">2</div><h3 class="text-xl font-bold text-white mb-2 font-heading">Creation</h3><p class="text-gray-400">Our artists bring concepts to life.</p></div>
-                    <div class="process-step animatable" style="--delay: 300ms;"><div class="process-icon bg-purple-600/10 text-purple-300 w-20 h-20 rounded-xl mx-auto flex items-center justify-center text-3xl font-bold mb-4 border-2 border-purple-400/20">3</div><h3 class="text-xl font-bold text-white mb-2 font-heading">Refinement</h3><p class="text-gray-400">We perfect every single detail.</p></div>
-                    <div class="process-step animatable" style="--delay: 400ms;"><div class="process-icon bg-purple-600/10 text-purple-300 w-20 h-20 rounded-xl mx-auto flex items-center justify-center text-3xl font-bold mb-4 border-2 border-purple-400/20">4</div><h3 class="text-xl font-bold text-white mb-2 font-heading">Delivery</h3><p class="text-gray-400">Receive your stunning final product.</p></div>
+                    <div class="process-step animatable" style="--delay: 100ms;"><div class="process-icon bg-purple-600/10 text-purple-300 w-20 h-20 rounded-xl mx-auto flex items-center justify-center text-3xl font-bold mb-4 border-2 border-purple-400/20">1</div><h3 class="text-xl font-bold mb-2 font-heading" data-lang="process_step_1_title">Immersion</h3><p class="text-text-muted" data-lang="process_step_1_desc">We absorb your vision and goals.</p></div>
+                    <div class="process-step animatable" style="--delay: 200ms;"><div class="process-icon bg-purple-600/10 text-purple-300 w-20 h-20 rounded-xl mx-auto flex items-center justify-center text-3xl font-bold mb-4 border-2 border-purple-400/20">2</div><h3 class="text-xl font-bold mb-2 font-heading" data-lang="process_step_2_title">Creation</h3><p class="text-text-muted" data-lang="process_step_2_desc">Our artists bring concepts to life.</p></div>
+                    <div class="process-step animatable" style="--delay: 300ms;"><div class="process-icon bg-purple-600/10 text-purple-300 w-20 h-20 rounded-xl mx-auto flex items-center justify-center text-3xl font-bold mb-4 border-2 border-purple-400/20">3</div><h3 class="text-xl font-bold mb-2 font-heading" data-lang="process_step_3_title">Refinement</h3><p class="text-text-muted" data-lang="process_step_3_desc">We perfect every single detail.</p></div>
+                    <div class="process-step animatable" style="--delay: 400ms;"><div class="process-icon bg-purple-600/10 text-purple-300 w-20 h-20 rounded-xl mx-auto flex items-center justify-center text-3xl font-bold mb-4 border-2 border-purple-400/20">4</div><h3 class="text-xl font-bold mb-2 font-heading" data-lang="process_step_4_title">Delivery</h3><p class="text-text-muted" data-lang="process_step_4_desc">Receive your stunning final product.</p></div>
                 </div>
             </div>
         </section>
@@ -434,47 +554,47 @@
         <section id="faq" class="py-20 md:py-32 section-gradient">
             <div class="container mx-auto px-6 scroll-reveal">
                 <div class="text-center mb-16">
-                    <p class="text-purple-400 font-semibold tracking-widest">ANY QUERIES YOU HAVE</p>
-                    <h2 class="text-4xl md:text-5xl font-bold text-white font-heading mt-2">Questions You May Ask</h2>
+                    <p class="text-purple-400 font-semibold tracking-widest" data-lang="faq_tag">ANY QUERIES YOU HAVE</p>
+                    <h2 class="text-4xl md:text-5xl font-bold font-heading mt-2" data-lang="faq_title">Questions You May Ask</h2>
                 </div>
                 <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="space-y-6">
                         <div class="faq-item">
                             <div class="faq-question">
-                                <span class="font-bold text-lg">Tell me about your agency.</span>
-                                <div class="faq-icon"><svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></div>
+                                <span class="font-bold text-lg" data-lang="faq_q1">Tell me about your agency.</span>
+                                <div class="faq-icon"><svg class="w-6 h-6 text-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></div>
                             </div>
-                            <div class="faq-answer"><p class="text-gray-400">Creativians is a premium digital agency specializing in high-impact motion graphics, 3D animation, and cinematic VFX. We are a collective of artists and technologists dedicated to elevating brands through powerful visual storytelling.</p></div>
+                            <div class="faq-answer"><p class="text-text-muted" data-lang="faq_a1">Creativians is a premium digital agency specializing in high-impact motion graphics, 3D animation, and cinematic VFX. We are a collective of artists and technologists dedicated to elevating brands through powerful visual storytelling.</p></div>
                         </div>
                         <div class="faq-item">
                             <div class="faq-question">
-                                <span class="font-bold text-lg">What services will you provide?</span>
-                                <div class="faq-icon"><svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></div>
+                                <span class="font-bold text-lg" data-lang="faq_q2">What services will you provide?</span>
+                                <div class="faq-icon"><svg class="w-6 h-6 text-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></div>
                             </div>
-                            <div class="faq-answer"><p class="text-gray-400">We offer a full suite of video production services, including YouTube video editing, social media ads, corporate videos, 2D/3D motion graphics, and complete filmmaking solutions from concept to final delivery.</p></div>
+                            <div class="faq-answer"><p class="text-text-muted" data-lang="faq_a2">We offer a full suite of video production services, including YouTube video editing, social media ads, corporate videos, 2D/3D motion graphics, and complete filmmaking solutions from concept to final delivery.</p></div>
                         </div>
                          <div class="faq-item">
                             <div class="faq-question">
-                                <span class="font-bold text-lg">What if I don't get the results?</span>
-                                <div class="faq-icon"><svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></div>
+                                <span class="font-bold text-lg" data-lang="faq_q3">What if I don't get the results?</span>
+                                <div class="faq-icon"><svg class="w-6 h-6 text-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></div>
                             </div>
-                            <div class="faq-answer"><p class="text-gray-400">Our process is built on collaboration and clear communication to ensure we align with your goals. We offer revision rounds to fine-tune the final product. While specific market results can't be guaranteed, we guarantee a professionally crafted video that meets the brief and our high quality standards.</p></div>
+                            <div class="faq-answer"><p class="text-text-muted" data-lang="faq_a3">Our process is built on collaboration and clear communication to ensure we align with your goals. We offer revision rounds to fine-tune the final product. While specific market results can't be guaranteed, we guarantee a professionally crafted video that meets the brief and our high quality standards.</p></div>
                         </div>
                     </div>
                     <div class="space-y-6">
                         <div class="faq-item">
                             <div class="faq-question">
-                                <span class="font-bold text-lg">Why wouldn't I hire a freelancer?</span>
-                                <div class="faq-icon"><svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></div>
+                                <span class="font-bold text-lg" data-lang="faq_q4">Why wouldn't I hire a freelancer?</span>
+                                <div class="faq-icon"><svg class="w-6 h-6 text-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></div>
                             </div>
-                            <div class="faq-answer"><p class="text-gray-400">While freelancers can be great, an agency like ours provides a dedicated team of specialists—directors, animators, editors, and strategists. This collaborative power ensures higher quality, faster turnaround, and a more comprehensive strategic approach that a single person cannot match.</p></div>
+                            <div class="faq-answer"><p class="text-text-muted" data-lang="faq_a4">While freelancers can be great, an agency like ours provides a dedicated team of specialists—directors, animators, editors, and strategists. This collaborative power ensures higher quality, faster turnaround, and a more comprehensive strategic approach that a single person cannot match.</p></div>
                         </div>
                         <div class="faq-item">
                             <div class="faq-question">
-                                <span class="font-bold text-lg">What softwares you use?</span>
-                                <div class="faq-icon"><svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></div>
+                                <span class="font-bold text-lg" data-lang="faq_q5">What softwares you use?</span>
+                                <div class="faq-icon"><svg class="w-6 h-6 text-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></div>
                             </div>
-                            <div class="faq-answer"><p class="text-gray-400">Our team is proficient in the full Adobe Creative Suite (After Effects, Premiere Pro, Photoshop), Cinema 4D, Blender, DaVinci Resolve, and other industry-standard software to ensure we have the best tools for every creative challenge.</p></div>
+                            <div class="faq-answer"><p class="text-text-muted" data-lang="faq_a5">Our team is proficient in the full Adobe Creative Suite (After Effects, Premiere Pro, Photoshop), Cinema 4D, Blender, DaVinci Resolve, and other industry-standard software to ensure we have the best tools for every creative challenge.</p></div>
                         </div>
                     </div>
                 </div>
@@ -485,23 +605,174 @@
             <div class="container mx-auto px-6 scroll-reveal">
                 <div class="aurora-cta rounded-2xl p-10 md:p-16 text-center shadow-2xl shadow-purple-600/20">
                     <div class="relative z-10">
-                        <h2 class="text-4xl md:text-5xl font-extrabold text-white font-heading">Have an Ambitious Idea?</h2>
-                        <p class="text-indigo-200 mt-6 text-lg max-w-2xl mx-auto">Let's talk about how Creativians can turn your vision into a stunning reality.</p>
-                        <a href="https://wa.me/8801948303128" target="_blank" class="mt-10 inline-block bg-white hover:bg-gray-200 text-purple-600 font-bold py-4 px-10 rounded-lg text-lg interactive-element">Chat with Us</a>
+                        <h2 class="text-4xl md:text-5xl font-extrabold font-heading" data-lang="contact_title">Have an Ambitious Idea?</h2>
+                        <p class="text-indigo-200 mt-6 text-lg max-w-2xl mx-auto" data-lang="contact_subtitle">Let's talk about how Creativians can turn your vision into a stunning reality.</p>
+                        <a href="https://wa.me/8801948303128" target="_blank" class="mt-10 inline-block bg-white hover:bg-gray-200 text-purple-600 font-bold py-4 px-10 rounded-lg text-lg interactive-element" data-lang="contact_cta">Chat with Us</a>
                     </div>
                 </div>
             </div>
         </section>
     </main>
     
-    <footer class="bg-black/40 border-t border-white/10 mt-20 relative z-10">
-        <div class="container mx-auto px-6 py-8 text-center text-gray-400"><p>&copy; 2024 Creativians. All Rights Reserved.</p></div>
+    <footer class="bg-black/40 border-t border-border-color mt-20 relative z-10">
+        <div class="container mx-auto px-6 py-8 text-center text-text-muted"><p data-lang="footer_text">&copy; 2024 Creativians. All Rights Reserved.</p></div>
     </footer>
 
-    <div id="portfolio-modal"><div class="modal-content"><span class="modal-close-btn">&times;</span><div id="modal-body" class="text-white"></div></div></div>
+    <div id="portfolio-modal"><div class="modal-content"><span class="modal-close-btn">&times;</span><div id="modal-body"></div></div></div>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
+        // --- Language Data ---
+        const translations = {
+            en: {
+                creativians: "Creativians",
+                nav_reviews: "Reviews", nav_work: "Work", nav_why_us: "Why Us", nav_process: "Process", nav_faq: "FAQ",
+                chat_with_us: "Chat with Us",
+                nav_reviews_mob: "Reviews", nav_work_mob: "Work", nav_why_us_mob: "Why Us", nav_process_mob: "Process", nav_faq_mob: "FAQ",
+                chat_with_us_mob: "Chat with Us",
+                hero_title: `Get Unbelievable Success <br/> Using <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400">Quality Video Content</span>.`,
+                hero_subtitle: "A digital agency specializing in high-impact motion graphics, 3D animation, and cinematic VFX that drive results.",
+                hero_cta: "Launch Your Vision",
+                reviews_title: "What Our Clients Say",
+                review_1_quote: `"The 3D work is simply unparalleled. They didn't just make a video; they built an experience."`,
+                review_1_name: "Samantha Chen",
+                review_1_title: "Head of Innovation, FutureTech",
+                review_2_quote: `"The motion graphics package was a game-changer. It gave our content a consistent, high-end feel across all platforms."`,
+                review_2_name: "Marcus Thorne",
+                review_2_title: "CMO, QuantumLeap",
+                review_3_quote: `"Working with Creativians is like having a secret weapon. Their creativity is off the charts, and they're also incredibly strategic."`,
+                review_3_name: "Elena Rodriguez",
+                review_3_title: "Founder, Catalyst Media",
+                work_title: "Our Creations",
+                work_subtitle: "Explore the intersection of art and technology. Click a category to see more.",
+                work_cat_1: "YouTube Videos",
+                work_cat_2: "Advertisement",
+                work_cat_3: "Reels",
+                work_cat_4: "Film Making",
+                why_us_tag: "WHY CHOOSE US",
+                why_us_title: "Know What We Do Differently",
+                other_agencies: "Other Agencies",
+                why_us_1: "In-house Team of Creative Experts",
+                why_us_2: "Dedicated to Results & ROI",
+                why_us_3: "Proven Strategic Content Funnels",
+                why_us_4: "Personalized, White-Glove Service",
+                why_us_5: "24/7 Support, Anytime You Need Us",
+                other_agencies_1: "Unreliable freelancers with slow turnarounds.",
+                other_agencies_2: "Edits that fail to convert or perform.",
+                other_agencies_3: "Lack of proper distribution systems.",
+                other_agencies_4: "Limited revisions with no client-focused approach.",
+                other_agencies_5: "Guesswork instead of data-driven decisions.",
+                process_title: "Our Creative Workflow",
+                process_subtitle: "A proven process for turning ambitious ideas into digital masterpieces.",
+                process_step_1_title: "Immersion",
+                process_step_1_desc: "We absorb your vision and goals.",
+                process_step_2_title: "Creation",
+                process_step_2_desc: "Our artists bring concepts to life.",
+                process_step_3_title: "Refinement",
+                process_step_3_desc: "We perfect every single detail.",
+                process_step_4_title: "Delivery",
+                process_step_4_desc: "Receive your stunning final product.",
+                faq_tag: "ANY QUERIES YOU HAVE",
+                faq_title: "Questions You May Ask",
+                faq_q1: "Tell me about your agency.",
+                faq_a1: "Creativians is a premium digital agency specializing in high-impact motion graphics, 3D animation, and cinematic VFX. We are a collective of artists and technologists dedicated to elevating brands through powerful visual storytelling.",
+                faq_q2: "What services will you provide?",
+                faq_a2: "We offer a full suite of video production services, including YouTube video editing, social media ads, corporate videos, 2D/3D motion graphics, and complete filmmaking solutions from concept to final delivery.",
+                faq_q3: "What if I don't get the results?",
+                faq_a3: "Our process is built on collaboration and clear communication to ensure we align with your goals. We offer revision rounds to fine-tune the final product. While specific market results can't be guaranteed, we guarantee a professionally crafted video that meets the brief and our high quality standards.",
+                faq_q4: "Why wouldn't I hire a freelancer?",
+                faq_a4: "While freelancers can be great, an agency like ours provides a dedicated team of specialists—directors, animators, editors, and strategists. This collaborative power ensures higher quality, faster turnaround, and a more comprehensive strategic approach that a single person cannot match.",
+                faq_q5: "What softwares you use?",
+                faq_a5: "Our team is proficient in the full Adobe Creative Suite (After Effects, Premiere Pro, Photoshop), Cinema 4D, Blender, DaVinci Resolve, and other industry-standard software to ensure we have the best tools for every creative challenge.",
+                contact_title: "Have an Ambitious Idea?",
+                contact_subtitle: "Let's talk about how Creativians can turn your vision into a stunning reality.",
+                contact_cta: "Chat with Us",
+                footer_text: "&copy; 2024 Creativians. All Rights Reserved."
+            },
+            bn: {
+                creativians: "ক্রিয়েটিভিয়ানস",
+                nav_reviews: "রিভিউ", nav_work: "কাজ", nav_why_us: "কেন আমরা", nav_process: "প্রক্রিয়া", nav_faq: "প্রশ্নাবলী",
+                chat_with_us: "চ্যাট করুন",
+                nav_reviews_mob: "রিভিউ", nav_work_mob: "কাজ", nav_why_us_mob: "কেন আমরা", nav_process_mob: "প্রক্রিয়া", nav_faq_mob: "প্রশ্নাবলী",
+                chat_with_us_mob: "চ্যাট করুন",
+                hero_title: `গুণগত মানের ভিডিও কনটেন্ট ব্যবহার করে <br/> <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400">অবিশ্বাস্য সাফল্য অর্জন করুন</span>`,
+                hero_subtitle: "একটি ডিজিটাল সংস্থা যা উচ্চ-প্রভাবशाली মোশন গ্রাফিক্স, ৩ডি অ্যানিমেশন এবং সিনেম্যাটিক ভিএফএক্স-এ বিশেষজ্ঞ, যা ফলাফল নিয়ে আসে।",
+                hero_cta: "আপনার পরিকল্পনা শুরু করুন",
+                reviews_title: "আমাদের ক্লায়েন্টরা যা বলেন",
+                review_1_quote: `"এদের ৩ডি কাজ এক কথায় অসাধারণ। তারা শুধু একটি ভিডিও তৈরি করেনি; তারা একটি অভিজ্ঞতা তৈরি করেছে।"`,
+                review_1_name: "সামান্থা চেন",
+                review_1_title: "উদ্ভাবন প্রধান, ফিউচারটেক",
+                review_2_quote: `"মোশন গ্রাফিক্স প্যাকেজটি ছিল একটি গেম-চেঞ্জার। এটি আমাদের কনটেন্টকে সব প্ল্যাটফর্মে একটি সামঞ্জস্যপূর্ণ, উচ্চ-মানের অনুভূতি দিয়েছে।"`,
+                review_2_name: "মার্কাস থর্ন",
+                review_2_title: "সিএমও, কোয়ান্টামলিপ",
+                review_3_quote: `"ক্রিয়েটিভিয়ানসের সাথে কাজ করা একটি গোপন অস্ত্রের মতো। তাদের সৃজনশীলতা অসাধারণ এবং তারা অবিশ্বাস্যভাবে কৌশলগত।"`,
+                review_3_name: "এলেনা রড্রিগেজ",
+                review_3_title: "প্রতিষ্ঠাতা, ক্যাটালিস্ট মিডিয়া",
+                work_title: "আমাদের সৃষ্টি",
+                work_subtitle: "শিল্প এবং প্রযুক্তির সংযোগ অন্বেষণ করুন। আরও দেখতে একটি বিভাগে ক্লিক করুন।",
+                work_cat_1: "ইউটিউব ভিডিও",
+                work_cat_2: "বিজ্ঞাপন",
+                work_cat_3: "রিলস",
+                work_cat_4: "চলচ্চিত্র নির্মাণ",
+                why_us_tag: "কেন আমাদের বেছে নেবেন",
+                why_us_title: "জানুন আমরা কীভাবে ভিন্নভাবে কাজ করি",
+                other_agencies: "অন্যান্য এজেন্সি",
+                why_us_1: "সৃজনশীল বিশেষজ্ঞদের ইন-হাউস দল",
+                why_us_2: "ফলাফল এবং ROI-এর প্রতি নিবেদিত",
+                why_us_3: "প্রমাণিত কৌশলগত কনটেন্ট ফানেল",
+                why_us_4: "ব্যক্তিগতকৃত, হোয়াইট-গ্লাভ পরিষেবা",
+                why_us_5: "২৪/৭ সমর্থন, যখনই আপনার প্রয়োজন",
+                other_agencies_1: "ধীরগতির অবিশ্বস্ত ফ্রিল্যান্সার।",
+                other_agencies_2: "সম্পাদনা যা রূপান্তর বা সম্পাদন করতে ব্যর্থ হয়।",
+                other_agencies_3: "সঠিক বিতরণ ব্যবস্থার অভাব।",
+                other_agencies_4: "ক্লায়েন্ট-কেন্দ্রিক পদ্ধতি ছাড়া সীমিত সংশোধন।",
+                other_agencies_5: "ডেটা-চালিত সিদ্ধান্তের পরিবর্তে অনুমান।",
+                process_title: "আমাদের সৃজনশীল কর্মপ্রবাহ",
+                process_subtitle: "উচ্চাভিলাষী ধারণাগুলোকে ডিজিটাল মাস্টারপিসে পরিণত করার একটি প্রমাণিত প্রক্রিয়া।",
+                process_step_1_title: "নিমজ্জন",
+                process_step_1_desc: "আমরা আপনার দৃষ্টিভঙ্গি এবং লক্ষ্য শোষণ করি।",
+                process_step_2_title: "সৃষ্টি",
+                process_step_2_desc: "আমাদের শিল্পীরা ধারণাগুলোকে জীবন্ত করে তোলে।",
+                process_step_3_title: "পরিমার্জন",
+                process_step_3_desc: "আমরা প্রতিটি বিবরণ নিখুঁত করি।",
+                process_step_4_title: "বিতরণ",
+                process_step_4_desc: "আপনার অত্যাশ্চর্য চূড়ান্ত পণ্য গ্রহণ করুন।",
+                faq_tag: "আপনার যেকোনো জিজ্ঞাসা",
+                faq_title: "আপনার জিজ্ঞাস্য প্রশ্ন",
+                faq_q1: "আপনাদের এজেন্সি সম্পর্কে বলুন।",
+                faq_a1: "ক্রিয়েটিভিয়ানস একটি প্রিমিয়াম ডিজিটাল সংস্থা যা উচ্চ-প্রভাবशाली মোশন গ্রাফিক্স, ৩ডি অ্যানিমেশন এবং সিনেম্যাটিক ভিএফএক্স-এ বিশেষজ্ঞ। আমরা শক্তিশালী ভিজ্যুয়াল গল্প বলার মাধ্যমে ব্র্যান্ডগুলোকে উন্নত করতে নিবেদিত।",
+                faq_q2: "আপনারা কি কি সেবা প্রদান করেন?",
+                faq_a2: "আমরা ইউটিউব ভিডিও সম্পাদনা, সোশ্যাল মিডিয়া বিজ্ঞাপন, কর্পোরেট ভিডিও, ২ডি/৩ডি মোশন গ্রাফিক্স এবং ধারণা থেকে চূড়ান্ত বিতরণ পর্যন্ত সম্পূর্ণ চলচ্চিত্র নির্মাণ সমাধান সহ ভিডিও উত্পাদন পরিষেবাগুলোর একটি সম্পূর্ণ স্যুট অফার করি।",
+                faq_q3: "যদি আমি ফলাফল না পাই?",
+                faq_a3: "আমাদের প্রক্রিয়াটি সহযোগিতা এবং স্পষ্ট যোগাযোগের উপর নির্মিত। আমরা চূড়ান্ত পণ্যটি সূক্ষ্ম-টিউন করার জন্য সংশোধন রাউন্ড অফার করি। যদিও নির্দিষ্ট বাজারের ফলাফলের নিশ্চয়তা দেওয়া যায় না, আমরা একটি পেশাদারভাবে তৈরি ভিডিওর গ্যারান্টি দিই যা সংক্ষিপ্ত এবং আমাদের উচ্চ মানের মান পূরণ করে।",
+                faq_q4: "আমি কেন একজন ফ্রিল্যান্সার নিয়োগ করব না?",
+                faq_a4: "ফ্রিল্যান্সাররা দুর্দান্ত হতে পারে, তবে আমাদের মতো একটি সংস্থা বিশেষজ্ঞদের একটি নিবেদিত দল সরবরাহ করে - পরিচালক, অ্যানিমেটর, সম্পাদক এবং কৌশলবিদ। এই সহযোগী শক্তি উচ্চ মানের, দ্রুত পরিবর্তন এবং আরও ব্যাপক কৌশলগত পদ্ধতির নিশ্চয়তা দেয় যা একজন ব্যক্তি মেলাতে পারে না।",
+                faq_q5: "আপনারা কি সফটওয়্যার ব্যবহার করেন?",
+                faq_a5: "আমাদের দল সম্পূর্ণ অ্যাডোবি ক্রিয়েটিভ স্যুট (আফটার ইফেক্টস, প্রিমিয়ার প্রো, ফটোশপ), সিনেমা ৪ডি, ব্লেন্ডার, ডাভিঞ্চি রিজলভ এবং অন্যান্য শিল্প-মানক সফ্টওয়্যারে পারদর্শী।",
+                contact_title: "একটি উচ্চাভিলাষী ধারণা আছে?",
+                contact_subtitle: "আসুন কথা বলি কিভাবে ক্রিয়েটিভিয়ানস আপনার দৃষ্টিভঙ্গিকে এক অত্যাশ্চর্য বাস্তবতায় পরিণত করতে পারে।",
+                contact_cta: "আমাদের সাথে চ্যাট করুন",
+                footer_text: "&copy; ২০২৪ ক্রিয়েটিভিয়ানস। সর্বস্বত্ব সংরক্ষিত।"
+            }
+        };
+
+        const modalTranslations = {
+            en: {
+                welcome_title: "Welcome to Creativians",
+                welcome_subtitle: "Please select your preferred experience.",
+                choose_lang: "Choose Language",
+                choose_theme: "Choose Theme",
+                save_button: "Continue"
+            },
+            bn: {
+                welcome_title: "ক্রিয়েটিভিয়ানসে স্বাগতম",
+                welcome_subtitle: "আপনার পছন্দের অভিজ্ঞতা নির্বাচন করুন।",
+                choose_lang: "ভাষা নির্বাচন করুন",
+                choose_theme: "থিম নির্বাচন করুন",
+                save_button: "চালিয়ে যান"
+            }
+        };
+
         // --- Setup ---
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
@@ -581,6 +852,7 @@
 
         document.getElementById('prev-testimonial').addEventListener('click', prevTestimonial);
         document.getElementById('next-testimonial').addEventListener('click', nextTestimonial);
+        // REMOVED: setInterval(nextTestimonial, 8000);
 
         const firstReel = slides[0].querySelector('.video-reel-container');
         animationObserver.observe(firstReel);
@@ -627,8 +899,109 @@
             });
         });
 
+        // --- Theme & Language Logic ---
+        const themeToggle = document.getElementById('theme-toggle');
+        const sunIcon = document.getElementById('theme-icon-sun');
+        const moonIcon = document.getElementById('theme-icon-moon');
+        const langToggle = document.getElementById('lang-toggle');
+        const welcomeModal = document.getElementById('welcome-modal');
+        let currentLang, currentTheme;
+
+        function applyTheme(theme) {
+            document.body.classList.toggle('light-theme', theme === 'light');
+            sunIcon.classList.toggle('hidden', theme !== 'light');
+            moonIcon.classList.toggle('hidden', theme === 'light');
+            localStorage.setItem('theme', theme);
+            currentTheme = theme;
+            updateStarColor();
+        }
+
+        function applyLanguage(lang) {
+            document.documentElement.lang = lang;
+            document.body.classList.toggle('lang-bn', lang === 'bn');
+            
+            document.querySelectorAll('[data-lang]').forEach(el => {
+                const key = el.dataset.lang;
+                if (translations[lang] && translations[lang][key]) {
+                    el.innerHTML = translations[lang][key];
+                }
+            });
+
+            langToggle.textContent = lang === 'en' ? 'BN' : 'EN';
+            localStorage.setItem('lang', lang);
+            currentLang = lang;
+        }
+
+        themeToggle.addEventListener('click', () => {
+            const newTheme = document.body.classList.contains('light-theme') ? 'dark' : 'light';
+            applyTheme(newTheme);
+        });
+
+        langToggle.addEventListener('click', () => {
+            const newLang = currentLang === 'en' ? 'bn' : 'en';
+            applyLanguage(newLang);
+        });
+
+        // --- Welcome Modal Logic ---
+        const preferencesSet = localStorage.getItem('preferencesSet');
+        if (!preferencesSet) {
+            welcomeModal.style.display = 'flex';
+            let selectedLang = 'en';
+            let selectedTheme = 'dark';
+
+            document.querySelector('[data-lang-pref="en"]').classList.add('selected');
+            document.querySelector('[data-theme-pref="dark"]').classList.add('selected');
+
+            function translateModal(lang) {
+                document.querySelectorAll('[data-lang-modal]').forEach(el => {
+                    const key = el.dataset.langModal;
+                    if (modalTranslations[lang] && modalTranslations[lang][key]) {
+                        el.innerHTML = modalTranslations[lang][key];
+                    }
+                });
+            }
+
+            welcomeModal.querySelectorAll('[data-lang-pref]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    welcomeModal.querySelectorAll('[data-lang-pref]').forEach(b => b.classList.remove('selected'));
+                    btn.classList.add('selected');
+                    selectedLang = btn.dataset.langPref;
+                    translateModal(selectedLang);
+                });
+            });
+
+            welcomeModal.querySelectorAll('[data-theme-pref]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    welcomeModal.querySelectorAll('[data-theme-pref]').forEach(b => b.classList.remove('selected'));
+                    btn.classList.add('selected');
+                    selectedTheme = btn.dataset.themePref;
+                });
+            });
+
+            document.getElementById('save-preferences-btn').addEventListener('click', () => {
+                applyLanguage(selectedLang);
+                applyTheme(selectedTheme);
+                localStorage.setItem('preferencesSet', 'true');
+                welcomeModal.style.display = 'none';
+            });
+        } else {
+            const savedLang = localStorage.getItem('lang') || 'en';
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            applyLanguage(savedLang);
+            applyTheme(savedTheme);
+        }
+
         // --- Interactive Three.js Background ---
-        let scene, camera, renderer, stars, mouse = new THREE.Vector2();
+        let scene, camera, renderer, stars, starMaterial, mouse = new THREE.Vector2();
+        
+        function updateStarColor() {
+            const isLight = document.body.classList.contains('light-theme');
+            const newColor = isLight ? 0x374151 : 0xaaaaaa;
+            if (starMaterial) {
+                starMaterial.color.setHex(newColor);
+            }
+        }
+
         function init() {
             scene = new THREE.Scene();
             camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 1000);
@@ -639,7 +1012,8 @@
             for (let i = 0; i < 8000; i++) { starCoords.push(Math.random()*2000-1000, Math.random()*2000-1000, Math.random()*2000-1000); }
             const starGeo = new THREE.BufferGeometry();
             starGeo.setAttribute('position', new THREE.Float32BufferAttribute(starCoords, 3));
-            const starMaterial = new THREE.PointsMaterial({ color: 0xaaaaaa, size: 0.8, transparent: true, opacity: 0.8 });
+            starMaterial = new THREE.PointsMaterial({ color: 0xaaaaaa, size: 0.8, transparent: true, opacity: 0.8 });
+            updateStarColor();
             stars = new THREE.Points(starGeo, starMaterial);
             scene.add(stars);
             window.addEventListener("resize", () => {
