@@ -3,32 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Creativians | Motion & 3D Agency</title>
+    <title>Creativians | Premium Motion & 3D Agency</title>
     
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Luxury Fonts from Google Fonts -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Added Hind Siliguri for Bengali -->
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Manrope:wght@400;500&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
     
+    <!-- Embedded Stylesheet -->
     <style>
-        body {
-            font-family: 'Manrope', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            overflow-x: hidden;
-            transition: background-color 0.5s ease, color 0.5s ease;
-        }
-        .font-heading {
-            font-family: 'Cormorant Garamond', serif;
-            letter-spacing: 0.03em;
-        }
-        .lang-bn, .lang-bn .font-heading, body.lang-bn .font-heading {
-            font-family: 'Hind Siliguri', sans-serif;
-        }
-
+        /* --- Base & Theming --- */
         :root {
             --bg-color: #0a0a0a;
             --text-color: #e5e5e5;
@@ -41,7 +28,6 @@
             --other-agency-card-bg: #111;
             --other-agency-border: #222;
             --other-agency-text: #6b7280;
-            --star-color: 0xaaaaaa;
         }
 
         body.light-theme {
@@ -51,16 +37,35 @@
             --card-bg: #ffffff;
             --border-color: rgba(0, 0, 0, 0.08);
             --header-bg: rgba(255, 255, 255, 0.6);
-            /* NEW: Subtle animated gradient for light theme */
             --section-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             --aurora-base: #f0f2ff;
             --other-agency-card-bg: #f3f4f6;
             --other-agency-border: #e5e7eb;
             --other-agency-text: #4b5563;
-            --star-color: 0x374151;
         }
-        
-        #bg-canvas {
+
+        body {
+            font-family: 'Manrope', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+
+        /* --- Typography --- */
+        .font-heading {
+            font-family: 'Cormorant Garamond', serif;
+            letter-spacing: 0.03em;
+        }
+        .lang-bn, .lang-bn .font-heading, body.lang-bn .font-heading {
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+        .lang-bn .hero-content-wrapper {
+            padding-top: 4rem;
+        }
+
+        /* --- Vanta.js Background Container --- */
+        #interactive-bg {
             position: fixed;
             top: 0;
             left: 0;
@@ -69,6 +74,7 @@
             z-index: -1;
         }
 
+        /* --- General Styling & Animations --- */
         .section-gradient {
             background: var(--section-gradient);
             transition: background 0.5s ease;
@@ -100,27 +106,18 @@
             from { transform: rotateY(0deg) scale(1); opacity: 1; }
             to { transform: rotateY(-90deg) scale(0.9); opacity: 0; }
         }
-        
         @keyframes slideInRight {
             from { transform: translateX(100%); opacity: 0; }
             to { transform: translateX(0); opacity: 1; }
         }
-        
         @keyframes fadeInModal {
             from { opacity: 0; }
             to { opacity: 1; }
         }
 
-        .animate-flip-in {
-            animation: flipIn 1.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-        .animate-flip-out {
-            animation: flipOut 1.3s cubic-bezier(0.7, 0, 0.84, 0) forwards;
-        }
-
-        .animatable {
-            opacity: 0; /* Start hidden */
-        }
+        .animate-flip-in { animation: flipIn 1.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .animate-flip-out { animation: flipOut 1.3s cubic-bezier(0.7, 0, 0.84, 0) forwards; }
+        .animatable { opacity: 0; }
 
         .video-animation-wrapper { perspective: 1500px; }
         .video-container {
@@ -154,8 +151,7 @@
         .modal-content {
             background: var(--card-bg); border: 1px solid var(--border-color);
             border-radius: 1rem; padding: 2rem; width: 90%;
-            max-width: 1000px;
-            max-height: 90vh; overflow-y: auto;
+            max-width: 1000px; max-height: 90vh; overflow-y: auto;
             position: relative; transform: scale(0.95);
             transition: transform 0.3s ease-in-out, background-color 0.5s ease;
         }
@@ -167,9 +163,7 @@
         .modal-close-btn:hover { color: var(--text-color); }
 
         .testimonial-carousel { position: relative; perspective: 1000px; }
-        .testimonial-slide {
-            display: none; flex-direction: column; align-items: center; text-align: center;
-        }
+        .testimonial-slide { display: none; flex-direction: column; align-items: center; text-align: center; }
         .testimonial-slide.active { display: flex; }
         .video-reel-container {
             background: #1a1a1a; border: 8px solid #2a2a2a; border-radius: 2.5rem;
@@ -177,14 +171,9 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
         .video-reel-container iframe {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 177.77777778vh;
-            min-width: 100%;
-            min-height: 100%;
-            height: 56.25vw;
-            transform: translate(-50%, -50%);
+            position: absolute; top: 50%; left: 50%;
+            width: 177.77777778vh; min-width: 100%; min-height: 100%;
+            height: 56.25vw; transform: translate(-50%, -50%);
         }
         .testimonial-text {
              opacity: 0; transform: translateY(20px);
@@ -210,83 +199,48 @@
         }
 
         .faq-item {
-            background-color: var(--card-bg);
-            border-radius: 0.75rem;
-            border: 1px solid var(--border-color);
-            transition: background-color 0.3s ease;
+            background-color: var(--card-bg); border-radius: 0.75rem;
+            border: 1px solid var(--border-color); transition: background-color 0.3s ease;
         }
-        .faq-item.active {
-            background-color: var(--other-agency-card-bg);
-        }
+        .faq-item.active { background-color: var(--other-agency-card-bg); }
         .faq-question {
-            cursor: pointer;
-            padding: 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            cursor: pointer; padding: 1.5rem; display: flex;
+            justify-content: space-between; align-items: center;
         }
         .faq-answer {
-            max-height: 0;
-            overflow: hidden;
+            max-height: 0; overflow: hidden;
             transition: max-height 0.5s cubic-bezier(0.2, 1, 0.3, 1), padding 0.5s ease;
             padding: 0 1.5rem;
         }
         .faq-item.active .faq-answer {
-            max-height: 300px;
-            padding: 0 1.5rem 1.5rem;
+            max-height: 300px; padding: 0 1.5rem 1.5rem;
         }
-        .faq-icon {
-            transition: transform 0.4s cubic-bezier(0.2, 1, 0.3, 1);
-        }
-        .faq-item.active .faq-icon {
-            transform: rotate(180deg);
-        }
+        .faq-icon { transition: transform 0.4s cubic-bezier(0.2, 1, 0.3, 1); }
+        .faq-item.active .faq-icon { transform: rotate(180deg); }
 
         .comparison-card {
-            border-radius: 1.5rem;
-            padding: 2.5rem;
-            height: 100%;
+            border-radius: 1.5rem; padding: 2.5rem; height: 100%;
             transition: background-color 0.5s ease, border-color 0.5s ease;
         }
         .creativians-card {
-            background: var(--card-bg);
-            border: 1px solid rgba(168, 85, 247, 0.3);
-            position: relative;
-            overflow: hidden;
+            background: var(--card-bg); border: 1px solid rgba(168, 85, 247, 0.3);
+            position: relative; overflow: hidden;
         }
         .creativians-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            border-radius: 1.5rem;
-            border: 2px solid transparent;
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: 1.5rem; border: 2px solid transparent;
             background: linear-gradient(120deg, #8e2de2, #4a00e0) border-box;
             -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
             -webkit-mask-composite: destination-out;
-            mask-composite: exclude;
-            animation: spin-glow 5s linear infinite;
+            mask-composite: exclude; animation: spin-glow 5s linear infinite;
         }
-        @keyframes spin-glow {
-            to { transform: rotate(360deg); }
-        }
+        @keyframes spin-glow { to { transform: rotate(360deg); } }
         .other-agencies-card {
             background: var(--other-agency-card-bg);
             border: 1px solid var(--other-agency-border);
         }
-        .comparison-list li {
-            display: flex;
-            align-items: start;
-            margin-bottom: 1rem;
-        }
-        .comparison-list svg {
-            flex-shrink: 0;
-            margin-top: 5px;
-            margin-right: 0.75rem;
-        }
-
+        .comparison-list li { display: flex; align-items: start; margin-bottom: 1rem; }
+        .comparison-list svg { flex-shrink: 0; margin-top: 5px; margin-right: 0.75rem; }
 
         .aurora-cta {
             position: relative; overflow: hidden; background-color: var(--aurora-base);
@@ -308,21 +262,14 @@
         @keyframes move-blob-2 { from { transform: translate(0, 0) rotate(0deg); } to { transform: translate(-80px, -40px) rotate(-180deg); } }
         
         #welcome-modal {
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background-color: rgba(0,0,0,0.8);
-            backdrop-filter: blur(10px);
-            z-index: 200;
-            display: none; /* Hidden by default */
-            align-items: center; justify-content: center;
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background-color: rgba(0,0,0,0.8); backdrop-filter: blur(10px);
+            z-index: 200; display: none; align-items: center; justify-content: center;
             animation: fadeInModal 0.5s ease forwards;
         }
         .preference-card {
-            background-color: var(--card-bg);
-            border-radius: 1rem;
-            padding: 2.5rem;
-            width: 90%;
-            max-width: 500px;
+            background-color: var(--card-bg); border-radius: 1rem;
+            padding: 2.5rem; width: 90%; max-width: 500px;
             border: 1px solid var(--border-color);
         }
         .preference-btn {
@@ -330,20 +277,17 @@
             transition: all 0.3s ease;
         }
         .preference-btn.selected {
-            border-color: #8b5cf6; /* Purple */
+            border-color: #8b5cf6;
             background-color: rgba(139, 92, 246, 0.1);
-        }
-        /* NEW: Fix for Bengali hero text overlap */
-        .lang-bn .hero-content-wrapper {
-            padding-top: 4rem; /* Add padding to push it down */
         }
     </style>
 </head>
 <body>
 
-    <canvas id="bg-canvas"></canvas>
+    <!-- Vanta.js Background Container -->
+    <div id="interactive-bg"></div>
 
-    <!-- NEW: Welcome Modal -->
+    <!-- Welcome Modal -->
     <div id="welcome-modal">
         <div class="preference-card text-center">
             <h2 class="text-3xl font-bold font-heading mb-4" data-lang-modal="welcome_title">Welcome to Creativians</h2>
@@ -371,6 +315,7 @@
         </div>
     </div>
 
+    <!-- Header -->
     <header class="fixed top-0 left-0 right-0 z-50 bg-header-bg backdrop-blur-lg border-b border-border-color transition-colors duration-500">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
             <a href="#" class="text-2xl font-bold font-heading" data-lang="creativians">Creativians</a>
@@ -385,16 +330,14 @@
                 <a href="https://wa.me/8801948303128" target="_blank" class="hidden sm:inline-block bg-purple-600 hover:bg-purple-500 text-white font-semibold py-2 px-5 rounded-lg interactive-element" data-lang="chat_with_us">
                     Chat with Us
                 </a>
-                <!-- LANGUAGE TOGGLE -->
-                <button id="lang-toggle" class="p-2 rounded-full text-text-muted hover:text-text-color hover:bg-card-bg transition-colors duration-300 font-bold text-sm">
+                <button id="lang-toggle" aria-label="Toggle Language" class="p-2 rounded-full text-text-muted hover:text-text-color hover:bg-card-bg transition-colors duration-300 font-bold text-sm">
                     BN
                 </button>
-                <!-- THEME TOGGLE -->
-                <button id="theme-toggle" class="p-2 rounded-full text-text-muted hover:text-text-color hover:bg-card-bg transition-colors duration-300">
+                <button id="theme-toggle" aria-label="Toggle Theme" class="p-2 rounded-full text-text-muted hover:text-text-color hover:bg-card-bg transition-colors duration-300">
                     <svg id="theme-icon-sun" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
                     <svg id="theme-icon-moon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
                 </button>
-                <button id="mobile-menu-button" class="md:hidden text-text-color focus:outline-none">
+                <button id="mobile-menu-button" aria-label="Open Menu" class="md:hidden text-text-color focus:outline-none">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
                 </button>
             </div>
@@ -409,12 +352,12 @@
         </div>
     </header>
 
+    <!-- Main Content -->
     <main class="relative z-10">
         <section class="relative min-h-screen flex items-center">
             <div class="container mx-auto px-6">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
                     <div class="text-center md:text-left">
-                        <!-- Added hero-content-wrapper for Bengali fix -->
                         <div class="scroll-reveal hero-content-wrapper">
                             <h1 class="text-5xl md:text-7xl font-extrabold leading-tight mb-6 font-heading" data-lang="hero_title">
                                 Get Unbelievable Success <br/> Using <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400">Quality Video Content</span>.
@@ -452,7 +395,6 @@
             <div class="container mx-auto px-6 scroll-reveal">
                 <div class="text-center mb-16"><h2 class="text-4xl md:text-5xl font-bold font-heading" data-lang="reviews_title">What Our Clients Say</h2></div>
                 <div class="testimonial-carousel max-w-4xl mx-auto">
-                    <!-- Slide 1 -->
                     <div class="testimonial-slide active">
                         <div class="video-reel-container animatable">
                              <iframe id="testimonial-video-0" src="https://www.youtube.com/embed/Gx-5cbBzf5Y?enablejsapi=1&controls=1&rel=0" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -463,7 +405,6 @@
                             <p class="text-sm text-purple-400" data-lang="review_1_title">Head of Innovation, FutureTech</p>
                         </div>
                     </div>
-                    <!-- Slide 2 -->
                     <div class="testimonial-slide">
                         <div class="video-reel-container animatable">
                             <iframe id="testimonial-video-1" src="https://www.youtube.com/embed/Gx-5cbBzf5Y?enablejsapi=1&controls=1&rel=0" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -474,7 +415,6 @@
                             <p class="text-sm text-purple-400" data-lang="review_2_title">CMO, QuantumLeap</p>
                         </div>
                     </div>
-                    <!-- Slide 3 -->
                     <div class="testimonial-slide">
                         <div class="video-reel-container animatable">
                             <iframe id="testimonial-video-2" src="https://www.youtube.com/embed/Gx-5cbBzf5Y?enablejsapi=1&controls=1&rel=0" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -485,10 +425,9 @@
                             <p class="text-sm text-purple-400" data-lang="review_3_title">Founder, Catalyst Media</p>
                         </div>
                     </div>
-                    <!-- Navigation -->
                     <div class="testimonial-nav">
-                        <button id="prev-testimonial"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg></button>
-                        <button id="next-testimonial"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></button>
+                        <button id="prev-testimonial" aria-label="Previous Testimonial"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg></button>
+                        <button id="next-testimonial" aria-label="Next Testimonial"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></button>
                     </div>
                 </div>
             </div>
@@ -614,428 +553,369 @@
         </section>
     </main>
     
+    <!-- Footer -->
     <footer class="bg-black/40 border-t border-border-color mt-20 relative z-10">
         <div class="container mx-auto px-6 py-8 text-center text-text-muted"><p data-lang="footer_text">&copy; 2024 Creativians. All Rights Reserved.</p></div>
     </footer>
 
-    <div id="portfolio-modal"><div class="modal-content"><span class="modal-close-btn">&times;</span><div id="modal-body"></div></div></div>
+    <!-- Portfolio Modal -->
+    <div id="portfolio-modal">
+        <div class="modal-content">
+            <span class="modal-close-btn" role="button" aria-label="Close Modal">&times;</span>
+            <div id="modal-body"></div>
+        </div>
+    </div>
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- JavaScript Libraries & Main Script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.clouds.min.js"></script>
     <script>
-        // --- Language Data ---
-        const translations = {
-            en: {
-                creativians: "Creativians",
-                nav_reviews: "Reviews", nav_work: "Work", nav_why_us: "Why Us", nav_process: "Process", nav_faq: "FAQ",
-                chat_with_us: "Chat with Us",
-                nav_reviews_mob: "Reviews", nav_work_mob: "Work", nav_why_us_mob: "Why Us", nav_process_mob: "Process", nav_faq_mob: "FAQ",
-                chat_with_us_mob: "Chat with Us",
-                hero_title: `Get Unbelievable Success <br/> Using <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400">Quality Video Content</span>.`,
-                hero_subtitle: "A digital agency specializing in high-impact motion graphics, 3D animation, and cinematic VFX that drive results.",
-                hero_cta: "Launch Your Vision",
-                reviews_title: "What Our Clients Say",
-                review_1_quote: `"The 3D work is simply unparalleled. They didn't just make a video; they built an experience."`,
-                review_1_name: "Samantha Chen",
-                review_1_title: "Head of Innovation, FutureTech",
-                review_2_quote: `"The motion graphics package was a game-changer. It gave our content a consistent, high-end feel across all platforms."`,
-                review_2_name: "Marcus Thorne",
-                review_2_title: "CMO, QuantumLeap",
-                review_3_quote: `"Working with Creativians is like having a secret weapon. Their creativity is off the charts, and they're also incredibly strategic."`,
-                review_3_name: "Elena Rodriguez",
-                review_3_title: "Founder, Catalyst Media",
-                work_title: "Our Creations",
-                work_subtitle: "Explore the intersection of art and technology. Click a category to see more.",
-                work_cat_1: "YouTube Videos",
-                work_cat_2: "Advertisement",
-                work_cat_3: "Reels",
-                work_cat_4: "Film Making",
-                why_us_tag: "WHY CHOOSE US",
-                why_us_title: "Know What We Do Differently",
-                other_agencies: "Other Agencies",
-                why_us_1: "In-house Team of Creative Experts",
-                why_us_2: "Dedicated to Results & ROI",
-                why_us_3: "Proven Strategic Content Funnels",
-                why_us_4: "Personalized, White-Glove Service",
-                why_us_5: "24/7 Support, Anytime You Need Us",
-                other_agencies_1: "Unreliable freelancers with slow turnarounds.",
-                other_agencies_2: "Edits that fail to convert or perform.",
-                other_agencies_3: "Lack of proper distribution systems.",
-                other_agencies_4: "Limited revisions with no client-focused approach.",
-                other_agencies_5: "Guesswork instead of data-driven decisions.",
-                process_title: "Our Creative Workflow",
-                process_subtitle: "A proven process for turning ambitious ideas into digital masterpieces.",
-                process_step_1_title: "Immersion",
-                process_step_1_desc: "We absorb your vision and goals.",
-                process_step_2_title: "Creation",
-                process_step_2_desc: "Our artists bring concepts to life.",
-                process_step_3_title: "Refinement",
-                process_step_3_desc: "We perfect every single detail.",
-                process_step_4_title: "Delivery",
-                process_step_4_desc: "Receive your stunning final product.",
-                faq_tag: "ANY QUERIES YOU HAVE",
-                faq_title: "Questions You May Ask",
-                faq_q1: "Tell me about your agency.",
-                faq_a1: "Creativians is a premium digital agency specializing in high-impact motion graphics, 3D animation, and cinematic VFX. We are a collective of artists and technologists dedicated to elevating brands through powerful visual storytelling.",
-                faq_q2: "What services will you provide?",
-                faq_a2: "We offer a full suite of video production services, including YouTube video editing, social media ads, corporate videos, 2D/3D motion graphics, and complete filmmaking solutions from concept to final delivery.",
-                faq_q3: "What if I don't get the results?",
-                faq_a3: "Our process is built on collaboration and clear communication to ensure we align with your goals. We offer revision rounds to fine-tune the final product. While specific market results can't be guaranteed, we guarantee a professionally crafted video that meets the brief and our high quality standards.",
-                faq_q4: "Why wouldn't I hire a freelancer?",
-                faq_a4: "While freelancers can be great, an agency like ours provides a dedicated team of specialists—directors, animators, editors, and strategists. This collaborative power ensures higher quality, faster turnaround, and a more comprehensive strategic approach that a single person cannot match.",
-                faq_q5: "What softwares you use?",
-                faq_a5: "Our team is proficient in the full Adobe Creative Suite (After Effects, Premiere Pro, Photoshop), Cinema 4D, Blender, DaVinci Resolve, and other industry-standard software to ensure we have the best tools for every creative challenge.",
-                contact_title: "Have an Ambitious Idea?",
-                contact_subtitle: "Let's talk about how Creativians can turn your vision into a stunning reality.",
-                contact_cta: "Chat with Us",
-                footer_text: "&copy; 2024 Creativians. All Rights Reserved."
-            },
-            bn: {
-                creativians: "ক্রিয়েটিভিয়ানস",
-                nav_reviews: "রিভিউ", nav_work: "কাজ", nav_why_us: "কেন আমরা", nav_process: "প্রক্রিয়া", nav_faq: "প্রশ্নাবলী",
-                chat_with_us: "চ্যাট করুন",
-                nav_reviews_mob: "রিভিউ", nav_work_mob: "কাজ", nav_why_us_mob: "কেন আমরা", nav_process_mob: "প্রক্রিয়া", nav_faq_mob: "প্রশ্নাবলী",
-                chat_with_us_mob: "চ্যাট করুন",
-                hero_title: `গুণগত মানের ভিডিও কনটেন্ট ব্যবহার করে <br/> <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400">অবিশ্বাস্য সাফল্য অর্জন করুন</span>`,
-                hero_subtitle: "একটি ডিজিটাল সংস্থা যা উচ্চ-প্রভাবशाली মোশন গ্রাফিক্স, ৩ডি অ্যানিমেশন এবং সিনেম্যাটিক ভিএফএক্স-এ বিশেষজ্ঞ, যা ফলাফল নিয়ে আসে।",
-                hero_cta: "আপনার পরিকল্পনা শুরু করুন",
-                reviews_title: "আমাদের ক্লায়েন্টরা যা বলেন",
-                review_1_quote: `"এদের ৩ডি কাজ এক কথায় অসাধারণ। তারা শুধু একটি ভিডিও তৈরি করেনি; তারা একটি অভিজ্ঞতা তৈরি করেছে।"`,
-                review_1_name: "সামান্থা চেন",
-                review_1_title: "উদ্ভাবন প্রধান, ফিউচারটেক",
-                review_2_quote: `"মোশন গ্রাফিক্স প্যাকেজটি ছিল একটি গেম-চেঞ্জার। এটি আমাদের কনটেন্টকে সব প্ল্যাটফর্মে একটি সামঞ্জস্যপূর্ণ, উচ্চ-মানের অনুভূতি দিয়েছে।"`,
-                review_2_name: "মার্কাস থর্ন",
-                review_2_title: "সিএমও, কোয়ান্টামলিপ",
-                review_3_quote: `"ক্রিয়েটিভিয়ানসের সাথে কাজ করা একটি গোপন অস্ত্রের মতো। তাদের সৃজনশীলতা অসাধারণ এবং তারা অবিশ্বাস্যভাবে কৌশলগত।"`,
-                review_3_name: "এলেনা রড্রিগেজ",
-                review_3_title: "প্রতিষ্ঠাতা, ক্যাটালিস্ট মিডিয়া",
-                work_title: "আমাদের সৃষ্টি",
-                work_subtitle: "শিল্প এবং প্রযুক্তির সংযোগ অন্বেষণ করুন। আরও দেখতে একটি বিভাগে ক্লিক করুন।",
-                work_cat_1: "ইউটিউব ভিডিও",
-                work_cat_2: "বিজ্ঞাপন",
-                work_cat_3: "রিলস",
-                work_cat_4: "চলচ্চিত্র নির্মাণ",
-                why_us_tag: "কেন আমাদের বেছে নেবেন",
-                why_us_title: "জানুন আমরা কীভাবে ভিন্নভাবে কাজ করি",
-                other_agencies: "অন্যান্য এজেন্সি",
-                why_us_1: "সৃজনশীল বিশেষজ্ঞদের ইন-হাউস দল",
-                why_us_2: "ফলাফল এবং ROI-এর প্রতি নিবেদিত",
-                why_us_3: "প্রমাণিত কৌশলগত কনটেন্ট ফানেল",
-                why_us_4: "ব্যক্তিগতকৃত, হোয়াইট-গ্লাভ পরিষেবা",
-                why_us_5: "২৪/৭ সমর্থন, যখনই আপনার প্রয়োজন",
-                other_agencies_1: "ধীরগতির অবিশ্বস্ত ফ্রিল্যান্সার।",
-                other_agencies_2: "সম্পাদনা যা রূপান্তর বা সম্পাদন করতে ব্যর্থ হয়।",
-                other_agencies_3: "সঠিক বিতরণ ব্যবস্থার অভাব।",
-                other_agencies_4: "ক্লায়েন্ট-কেন্দ্রিক পদ্ধতি ছাড়া সীমিত সংশোধন।",
-                other_agencies_5: "ডেটা-চালিত সিদ্ধান্তের পরিবর্তে অনুমান।",
-                process_title: "আমাদের সৃজনশীল কর্মপ্রবাহ",
-                process_subtitle: "উচ্চাভিলাষী ধারণাগুলোকে ডিজিটাল মাস্টারপিসে পরিণত করার একটি প্রমাণিত প্রক্রিয়া।",
-                process_step_1_title: "নিমজ্জন",
-                process_step_1_desc: "আমরা আপনার দৃষ্টিভঙ্গি এবং লক্ষ্য শোষণ করি।",
-                process_step_2_title: "সৃষ্টি",
-                process_step_2_desc: "আমাদের শিল্পীরা ধারণাগুলোকে জীবন্ত করে তোলে।",
-                process_step_3_title: "পরিমার্জন",
-                process_step_3_desc: "আমরা প্রতিটি বিবরণ নিখুঁত করি।",
-                process_step_4_title: "বিতরণ",
-                process_step_4_desc: "আপনার অত্যাশ্চর্য চূড়ান্ত পণ্য গ্রহণ করুন।",
-                faq_tag: "আপনার যেকোনো জিজ্ঞাসা",
-                faq_title: "আপনার জিজ্ঞাস্য প্রশ্ন",
-                faq_q1: "আপনাদের এজেন্সি সম্পর্কে বলুন।",
-                faq_a1: "ক্রিয়েটিভিয়ানস একটি প্রিমিয়াম ডিজিটাল সংস্থা যা উচ্চ-প্রভাবशाली মোশন গ্রাফিক্স, ৩ডি অ্যানিমেশন এবং সিনেম্যাটিক ভিএফএক্স-এ বিশেষজ্ঞ। আমরা শক্তিশালী ভিজ্যুয়াল গল্প বলার মাধ্যমে ব্র্যান্ডগুলোকে উন্নত করতে নিবেদিত।",
-                faq_q2: "আপনারা কি কি সেবা প্রদান করেন?",
-                faq_a2: "আমরা ইউটিউব ভিডিও সম্পাদনা, সোশ্যাল মিডিয়া বিজ্ঞাপন, কর্পোরেট ভিডিও, ২ডি/৩ডি মোশন গ্রাফিক্স এবং ধারণা থেকে চূড়ান্ত বিতরণ পর্যন্ত সম্পূর্ণ চলচ্চিত্র নির্মাণ সমাধান সহ ভিডিও উত্পাদন পরিষেবাগুলোর একটি সম্পূর্ণ স্যুট অফার করি।",
-                faq_q3: "যদি আমি ফলাফল না পাই?",
-                faq_a3: "আমাদের প্রক্রিয়াটি সহযোগিতা এবং স্পষ্ট যোগাযোগের উপর নির্মিত। আমরা চূড়ান্ত পণ্যটি সূক্ষ্ম-টিউন করার জন্য সংশোধন রাউন্ড অফার করি। যদিও নির্দিষ্ট বাজারের ফলাফলের নিশ্চয়তা দেওয়া যায় না, আমরা একটি পেশাদারভাবে তৈরি ভিডিওর গ্যারান্টি দিই যা সংক্ষিপ্ত এবং আমাদের উচ্চ মানের মান পূরণ করে।",
-                faq_q4: "আমি কেন একজন ফ্রিল্যান্সার নিয়োগ করব না?",
-                faq_a4: "ফ্রিল্যান্সাররা দুর্দান্ত হতে পারে, তবে আমাদের মতো একটি সংস্থা বিশেষজ্ঞদের একটি নিবেদিত দল সরবরাহ করে - পরিচালক, অ্যানিমেটর, সম্পাদক এবং কৌশলবিদ। এই সহযোগী শক্তি উচ্চ মানের, দ্রুত পরিবর্তন এবং আরও ব্যাপক কৌশলগত পদ্ধতির নিশ্চয়তা দেয় যা একজন ব্যক্তি মেলাতে পারে না।",
-                faq_q5: "আপনারা কি সফটওয়্যার ব্যবহার করেন?",
-                faq_a5: "আমাদের দল সম্পূর্ণ অ্যাডোবি ক্রিয়েটিভ স্যুট (আফটার ইফেক্টস, প্রিমিয়ার প্রো, ফটোশপ), সিনেমা ৪ডি, ব্লেন্ডার, ডাভিঞ্চি রিজলভ এবং অন্যান্য শিল্প-মানক সফ্টওয়্যারে পারদর্শী।",
-                contact_title: "একটি উচ্চাভিলাষী ধারণা আছে?",
-                contact_subtitle: "আসুন কথা বলি কিভাবে ক্রিয়েটিভিয়ানস আপনার দৃষ্টিভঙ্গিকে এক অত্যাশ্চর্য বাস্তবতায় পরিণত করতে পারে।",
-                contact_cta: "আমাদের সাথে চ্যাট করুন",
-                footer_text: "&copy; ২০২৪ ক্রিয়েটিভিয়ানস। সর্বস্বত্ব সংরক্ষিত।"
-            }
-        };
+        document.addEventListener('DOMContentLoaded', () => {
 
-        const modalTranslations = {
-            en: {
-                welcome_title: "Welcome to Creativians",
-                welcome_subtitle: "Please select your preferred experience.",
-                choose_lang: "Choose Language",
-                choose_theme: "Choose Theme",
-                save_button: "Continue"
-            },
-            bn: {
-                welcome_title: "ক্রিয়েটিভিয়ানসে স্বাগতম",
-                welcome_subtitle: "আপনার পছন্দের অভিজ্ঞতা নির্বাচন করুন।",
-                choose_lang: "ভাষা নির্বাচন করুন",
-                choose_theme: "থিম নির্বাচন করুন",
-                save_button: "চালিয়ে যান"
-            }
-        };
-
-        // --- Setup ---
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-        mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
-
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                if (!mobileMenu.classList.contains('hidden')) mobileMenu.classList.add('hidden');
-                document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
-            });
-        });
-
-        // --- In/Out Animation Observer ---
-        const animatedElements = document.querySelectorAll('.animatable');
-        const animationObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                const target = entry.target;
-                if (entry.isIntersecting) {
-                    target.style.animationDelay = target.style.getPropertyValue('--delay') || '0ms';
-                    target.classList.remove('animate-flip-out');
-                    target.classList.add('animate-flip-in');
-                } else {
-                    target.classList.remove('animate-flip-in');
-                    target.classList.add('animate-flip-out');
+            // --- Language & Translation Data ---
+            const translations = {
+                en: {
+                    creativians: "Creativians",
+                    nav_reviews: "Reviews", nav_work: "Work", nav_why_us: "Why Us", nav_process: "Process", nav_faq: "FAQ",
+                    chat_with_us: "Chat with Us",
+                    nav_reviews_mob: "Reviews", nav_work_mob: "Work", nav_why_us_mob: "Why Us", nav_process_mob: "Process", nav_faq_mob: "FAQ",
+                    chat_with_us_mob: "Chat with Us",
+                    hero_title: `Get Unbelievable Success <br/> Using <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400">Quality Video Content</span>.`,
+                    hero_subtitle: "A digital agency specializing in high-impact motion graphics, 3D animation, and cinematic VFX that drive results.",
+                    hero_cta: "Launch Your Vision",
+                    reviews_title: "What Our Clients Say",
+                    review_1_quote: `"The 3D work is simply unparalleled. They didn't just make a video; they built an experience."`,
+                    review_1_name: "Samantha Chen",
+                    review_1_title: "Head of Innovation, FutureTech",
+                    review_2_quote: `"The motion graphics package was a game-changer. It gave our content a consistent, high-end feel across all platforms."`,
+                    review_2_name: "Marcus Thorne",
+                    review_2_title: "CMO, QuantumLeap",
+                    review_3_quote: `"Working with Creativians is like having a secret weapon. Their creativity is off the charts, and they're also incredibly strategic."`,
+                    review_3_name: "Elena Rodriguez",
+                    review_3_title: "Founder, Catalyst Media",
+                    work_title: "Our Creations",
+                    work_subtitle: "Explore the intersection of art and technology. Click a category to see more.",
+                    work_cat_1: "YouTube Videos",
+                    work_cat_2: "Advertisement",
+                    work_cat_3: "Reels",
+                    work_cat_4: "Film Making",
+                    why_us_tag: "WHY CHOOSE US",
+                    why_us_title: "Know What We Do Differently",
+                    other_agencies: "Other Agencies",
+                    why_us_1: "In-house Team of Creative Experts",
+                    why_us_2: "Dedicated to Results & ROI",
+                    why_us_3: "Proven Strategic Content Funnels",
+                    why_us_4: "Personalized, White-Glove Service",
+                    why_us_5: "24/7 Support, Anytime You Need Us",
+                    other_agencies_1: "Unreliable freelancers with slow turnarounds.",
+                    other_agencies_2: "Edits that fail to convert or perform.",
+                    other_agencies_3: "Lack of proper distribution systems.",
+                    other_agencies_4: "Limited revisions with no client-focused approach.",
+                    other_agencies_5: "Guesswork instead of data-driven decisions.",
+                    process_title: "Our Creative Workflow",
+                    process_subtitle: "A proven process for turning ambitious ideas into digital masterpieces.",
+                    process_step_1_title: "Immersion",
+                    process_step_1_desc: "We absorb your vision and goals.",
+                    process_step_2_title: "Creation",
+                    process_step_2_desc: "Our artists bring concepts to life.",
+                    process_step_3_title: "Refinement",
+                    process_step_3_desc: "We perfect every single detail.",
+                    process_step_4_title: "Delivery",
+                    process_step_4_desc: "Receive your stunning final product.",
+                    faq_tag: "ANY QUERIES YOU HAVE",
+                    faq_title: "Questions You May Ask",
+                    faq_q1: "Tell me about your agency.",
+                    faq_a1: "Creativians is a premium digital agency specializing in high-impact motion graphics, 3D animation, and cinematic VFX. We are a collective of artists and technologists dedicated to elevating brands through powerful visual storytelling.",
+                    faq_q2: "What services will you provide?",
+                    faq_a2: "We offer a full suite of video production services, including YouTube video editing, social media ads, corporate videos, 2D/3D motion graphics, and complete filmmaking solutions from concept to final delivery.",
+                    faq_q3: "What if I don't get the results?",
+                    faq_a3: "Our process is built on collaboration and clear communication to ensure we align with your goals. We offer revision rounds to fine-tune the final product. While specific market results can't be guaranteed, we guarantee a professionally crafted video that meets the brief and our high quality standards.",
+                    faq_q4: "Why wouldn't I hire a freelancer?",
+                    faq_a4: "While freelancers can be great, an agency like ours provides a dedicated team of specialists—directors, animators, editors, and strategists. This collaborative power ensures higher quality, faster turnaround, and a more comprehensive strategic approach that a single person cannot match.",
+                    faq_q5: "What softwares you use?",
+                    faq_a5: "Our team is proficient in the full Adobe Creative Suite (After Effects, Premiere Pro, Photoshop), Cinema 4D, Blender, DaVinci Resolve, and other industry-standard software to ensure we have the best tools for every creative challenge.",
+                    contact_title: "Have an Ambitious Idea?",
+                    contact_subtitle: "Let's talk about how Creativians can turn your vision into a stunning reality.",
+                    contact_cta: "Chat with Us",
+                    footer_text: "&copy; 2024 Creativians. All Rights Reserved."
+                },
+                bn: {
+                    creativians: "ক্রিয়েটিভিয়ানস",
+                    nav_reviews: "রিভিউ", nav_work: "কাজ", nav_why_us: "কেন আমরা", nav_process: "প্রক্রিয়া", nav_faq: "প্রশ্নাবলী",
+                    chat_with_us: "চ্যাট করুন",
+                    nav_reviews_mob: "রিভিউ", nav_work_mob: "কাজ", nav_why_us_mob: "কেন আমরা", nav_process_mob: "প্রক্রিয়া", nav_faq_mob: "প্রশ্নাবলী",
+                    chat_with_us_mob: "চ্যাট করুন",
+                    hero_title: `গুণগত মানের ভিডিও কনটেন্ট ব্যবহার করে <br/> <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400">অবিশ্বাস্য সাফল্য অর্জন করুন</span>`,
+                    hero_subtitle: "একটি ডিজিটাল সংস্থা যা উচ্চ-প্রভাবशाली মোশন গ্রাফিক্স, ৩ডি অ্যানিমেশন এবং সিনেম্যাটিক ভিএফএক্স-এ বিশেষজ্ঞ, যা ফলাফল নিয়ে আসে।",
+                    hero_cta: "আপনার পরিকল্পনা শুরু করুন",
+                    reviews_title: "আমাদের ক্লায়েন্টরা যা বলেন",
+                    review_1_quote: `"এদের ৩ডি কাজ এক কথায় অসাধারণ। তারা শুধু একটি ভিডিও তৈরি করেনি; তারা একটি অভিজ্ঞতা তৈরি করেছে।"`,
+                    review_1_name: "সামান্থা চেন",
+                    review_1_title: "উদ্ভাবন প্রধান, ফিউচারটেক",
+                    review_2_quote: `"মোশন গ্রাফিক্স প্যাকেজটি ছিল একটি গেম-চেঞ্জার। এটি আমাদের কনটেন্টকে সব প্ল্যাটফর্মে একটি সামঞ্জস্যপূর্ণ, উচ্চ-মানের অনুভূতি দিয়েছে।"`,
+                    review_2_name: "মার্কাস থর্ন",
+                    review_2_title: "সিএমও, কোয়ান্টামলিপ",
+                    review_3_quote: `"ক্রিয়েটিভিয়ানসের সাথে কাজ করা একটি গোপন অস্ত্রের মতো। তাদের সৃজনশীলতা অসাধারণ এবং তারা অবিশ্বাস্যভাবে কৌশলগত।"`,
+                    review_3_name: "এলেনা রড্রিগেজ",
+                    review_3_title: "প্রতিষ্ঠাতা, ক্যাটালিস্ট মিডিয়া",
+                    work_title: "আমাদের সৃষ্টি",
+                    work_subtitle: "শিল্প এবং প্রযুক্তির সংযোগ অন্বেষণ করুন। আরও দেখতে একটি বিভাগে ক্লিক করুন।",
+                    work_cat_1: "ইউটিউব ভিডিও",
+                    work_cat_2: "বিজ্ঞাপন",
+                    work_cat_3: "রিলস",
+                    work_cat_4: "চলচ্চিত্র নির্মাণ",
+                    why_us_tag: "কেন আমাদের বেছে নেবেন",
+                    why_us_title: "জানুন আমরা কীভাবে ভিন্নভাবে কাজ করি",
+                    other_agencies: "অন্যান্য এজেন্সি",
+                    why_us_1: "সৃজনশীল বিশেষজ্ঞদের ইন-হাউস দল",
+                    why_us_2: "ফলাফল এবং ROI-এর প্রতি নিবেদিত",
+                    why_us_3: "প্রমাণিত কৌশলগত কনটেন্ট ফানেল",
+                    why_us_4: "ব্যক্তিগতকৃত, হোয়াইট-গ্লাভ পরিষেবা",
+                    why_us_5: "২৪/৭ সমর্থন, যখনই আপনার প্রয়োজন",
+                    other_agencies_1: "ধীরগতির অবিশ্বস্ত ফ্রিল্যান্সার।",
+                    other_agencies_2: "সম্পাদনা যা রূপান্তর বা সম্পাদন করতে ব্যর্থ হয়।",
+                    other_agencies_3: "সঠিক বিতরণ ব্যবস্থার অভাব।",
+                    other_agencies_4: "ক্লায়েন্ট-কেন্দ্রিক পদ্ধতি ছাড়া সীমিত সংশোধন।",
+                    other_agencies_5: "ডেটা-চালিত সিদ্ধান্তের পরিবর্তে অনুমান।",
+                    process_title: "আমাদের সৃজনশীল কর্মপ্রবাহ",
+                    process_subtitle: "উচ্চাভিলাষী ধারণাগুলোকে ডিজিটাল মাস্টারপিসে পরিণত করার একটি প্রমাণিত প্রক্রিয়া।",
+                    process_step_1_title: "নিমজ্জন",
+                    process_step_1_desc: "আমরা আপনার দৃষ্টিভঙ্গি এবং লক্ষ্য শোষণ করি।",
+                    process_step_2_title: "সৃষ্টি",
+                    process_step_2_desc: "আমাদের শিল্পীরা ধারণাগুলোকে জীবন্ত করে তোলে।",
+                    process_step_3_title: "পরিমার্জন",
+                    process_step_3_desc: "আমরা প্রতিটি বিবরণ নিখুঁত করি।",
+                    process_step_4_title: "বিতরণ",
+                    process_step_4_desc: "আপনার অত্যাশ্চর্য চূড়ান্ত পণ্য গ্রহণ করুন।",
+                    faq_tag: "আপনার যেকোনো জিজ্ঞাসা",
+                    faq_title: "আপনার জিজ্ঞাস্য প্রশ্ন",
+                    faq_q1: "আপনাদের এজেন্সি সম্পর্কে বলুন।",
+                    faq_a1: "ক্রিয়েটিভিয়ানস একটি প্রিমিয়াম ডিজিটাল সংস্থা যা উচ্চ-প্রভাবशाली মোশন গ্রাফিক্স, ৩ডি অ্যানিমেশন এবং সিনেম্যাটিক ভিএফএক্স-এ বিশেষজ্ঞ। আমরা শক্তিশালী ভিজ্যুয়াল গল্প বলার মাধ্যমে ব্র্যান্ডগুলোকে উন্নত করতে নিবেদিত।",
+                    faq_q2: "আপনারা কি কি সেবা প্রদান করেন?",
+                    faq_a2: "আমরা ইউটিউব ভিডিও সম্পাদনা, সোশ্যাল মিডিয়া বিজ্ঞাপন, কর্পোরেট ভিডিও, ২ডি/৩ডি মোশন গ্রাফিক্স এবং ধারণা থেকে চূড়ান্ত বিতরণ পর্যন্ত সম্পূর্ণ চলচ্চিত্র নির্মাণ সমাধান সহ ভিডিও উত্পাদন পরিষেবাগুলোর একটি সম্পূর্ণ স্যুট অফার করি।",
+                    faq_q3: "যদি আমি ফলাফল না পাই?",
+                    faq_a3: "আমাদের প্রক্রিয়াটি সহযোগিতা এবং স্পষ্ট যোগাযোগের উপর নির্মিত। আমরা চূড়ান্ত পণ্যটি সূক্ষ্ম-টিউন করার জন্য সংশোধন রাউন্ড অফার করি। যদিও নির্দিষ্ট বাজারের ফলাফলের নিশ্চয়তা দেওয়া যায় না, আমরা একটি পেশাদারভাবে তৈরি ভিডিওর গ্যারান্টি দিই যা সংক্ষিপ্ত এবং আমাদের উচ্চ মানের মান পূরণ করে।",
+                    faq_q4: "আমি কেন একজন ফ্রিল্যান্সার নিয়োগ করব না?",
+                    faq_a4: "ফ্রিল্যান্সাররা দুর্দান্ত হতে পারে, তবে আমাদের মতো একটি সংস্থা বিশেষজ্ঞদের একটি নিবেদিত দল সরবরাহ করে - পরিচালক, অ্যানিমেটর, সম্পাদক এবং কৌশলবিদ। এই সহযোগী শক্তি উচ্চ মানের, দ্রুত পরিবর্তন এবং আরও ব্যাপক কৌশলগত পদ্ধতির নিশ্চয়তা দেয় যা একজন ব্যক্তি মেলাতে পারে না।",
+                    faq_q5: "আপনারা কি সফটওয়্যার ব্যবহার করেন?",
+                    faq_a5: "আমাদের দল সম্পূর্ণ অ্যাডোবি ক্রিয়েটিভ স্যুট (আফটার ইফেক্টস, প্রিমিয়ার প্রো, ফটোশপ), সিনেমা ৪ডি, ব্লেন্ডার, ডাভিঞ্চি রিজলভ এবং অন্যান্য শিল্প-মানক সফ্টওয়্যারে পারদর্শী।",
+                    contact_title: "একটি উচ্চাভিলাষী ধারণা আছে?",
+                    contact_subtitle: "আসুন কথা বলি কিভাবে ক্রিয়েটিভিয়ানস আপনার দৃষ্টিভঙ্গিকে এক অত্যাশ্চর্য বাস্তবতায় পরিণত করতে পারে।",
+                    contact_cta: "আমাদের সাথে চ্যাট করুন",
+                    footer_text: "&copy; ২০২৪ ক্রিয়েটিভিয়ানস। সর্বস্বত্ব সংরক্ষিত।"
                 }
-            });
-        }, { threshold: 0.2, rootMargin: "0px 0px -50px 0px" });
-        animatedElements.forEach(element => animationObserver.observe(element));
+            };
+            const modalTranslations = {
+                en: { welcome_title: "Welcome to Creativians", welcome_subtitle: "Please select your preferred experience.", choose_lang: "Choose Language", choose_theme: "Choose Theme", save_button: "Continue" },
+                bn: { welcome_title: "ক্রিয়েটিভিয়ানসে স্বাগতম", welcome_subtitle: "আপনার পছন্দের অভিজ্ঞতা নির্বাচন করুন।", choose_lang: "ভাষা নির্বাচন করুন", choose_theme: "থিম নির্বাচন করুন", save_button: "চালিয়ে যান" }
+            };
 
-        // --- Scroll Reveal for non-3D elements ---
-        const scrollRevealElements = document.querySelectorAll('.scroll-reveal');
-        const scrollObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                } else {
-                    entry.target.classList.remove('visible');
-                }
-            });
-        }, { threshold: 0.15 });
-        scrollRevealElements.forEach(element => scrollObserver.observe(element));
+            // --- Portfolio Data ---
+            const portfolioData = {
+                youtube: { title: 'YouTube Videos', projects: [ { name: 'Viral Challenge Explained', videoId: 'dQw4w9WgXcQ' }, { name: 'Tech Review Series', videoId: '3tmd-ClpJxA' }, { name: 'Documentary Short', videoId: 'v64KOx54w2I' }, { name: 'Comedy Skit Compilation', videoId: '6_b7RDuLwcI' } ] },
+                advertisement: { title: 'Advertisements', projects: [ { name: 'Luxury Car Commercial', videoId: 'E3Q5_1_V_s8' }, { name: 'Snack Brand Social Ad', videoId: 'u1v_s2w-D7o' }, { name: 'Fashion Film', videoId: 'Jd2GK0qDt_g' }, { name: 'Tech Product Launch', videoId: '7x3wRBb8f4c' } ] },
+                reels: { title: 'Reels & Motion Graphics', projects: [ { name: 'Explainer Video', videoId: 'p21if6bmbKI' }, { name: 'Logo Animation Showcase', videoId: 'Fmp3_fDAaWw' }, { name: 'Broadcast Graphics', videoId: 'TSS0zx-U5sY' }, { name: 'UI/UX Animation', videoId: 'YytF2vCjP2M' } ] },
+                filmmaking: { title: 'Film Making', projects: [ { name: 'Sci-Fi Short Film', videoId: 'H1m1rS1c01U' }, { name: 'Corporate Culture Film', videoId: 'M7FIvfx5J10' }, { name: 'Music Video', videoId: 'zABLzdAYK2U' }, { name: 'Event Aftermovie', videoId: 'k4YRWT_Aldo' } ] }
+            };
 
-        // --- Testimonial Carousel ---
-        const slides = document.querySelectorAll('.testimonial-slide');
-        let currentSlide = 0;
-        let isAnimating = false;
+            // --- Element Selectors ---
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const themeToggle = document.getElementById('theme-toggle');
+            const sunIcon = document.getElementById('theme-icon-sun');
+            const moonIcon = document.getElementById('theme-icon-moon');
+            const langToggle = document.getElementById('lang-toggle');
+            const welcomeModal = document.getElementById('welcome-modal');
 
-        function showSlide(index) {
-            if (isAnimating || index === currentSlide) return;
-            isAnimating = true;
+            let currentLang, currentTheme;
+            let vantaEffect = null;
 
-            const oldSlide = slides[currentSlide];
-            const newSlide = slides[index];
-            
-            const oldReel = oldSlide.querySelector('.video-reel-container');
-            const newReel = newSlide.querySelector('.video-reel-container');
-
-            oldReel.classList.remove('animate-flip-in');
-            oldReel.classList.add('animate-flip-out');
-            
-            oldReel.addEventListener('animationend', () => {
-                oldSlide.classList.remove('active');
-                newSlide.classList.add('active');
-                
-                newReel.classList.remove('animate-flip-out');
-                newReel.classList.add('animate-flip-in');
-                
-                isAnimating = false;
-            }, { once: true });
-
-            currentSlide = index;
-        }
-
-        function nextTestimonial() { showSlide((currentSlide + 1) % slides.length); }
-        function prevTestimonial() { showSlide((currentSlide - 1 + slides.length) % slides.length); }
-
-        document.getElementById('prev-testimonial').addEventListener('click', prevTestimonial);
-        document.getElementById('next-testimonial').addEventListener('click', nextTestimonial);
-        // REMOVED: setInterval(nextTestimonial, 8000);
-
-        const firstReel = slides[0].querySelector('.video-reel-container');
-        animationObserver.observe(firstReel);
-
-
-        // --- Portfolio Modal Logic ---
-        const portfolioData = {
-            youtube: { title: 'YouTube Videos', projects: [ { name: 'Viral Challenge Explained', videoId: 'Gx-5cbBzf5Y' }, { name: 'Tech Review Series', videoId: 'Gx-5cbBzf5Y' }, { name: 'Documentary Short', videoId: 'Gx-5cbBzf5Y' }, { name: 'Comedy Skit Compilation', videoId: 'Gx-5cbBzf5Y' } ] },
-            advertisement: { title: 'Advertisements', projects: [ { name: 'Luxury Car Commercial', videoId: 'Gx-5cbBzf5Y' }, { name: 'Snack Brand Social Ad', videoId: 'Gx-5cbBzf5Y' }, { name: 'Fashion Film', videoId: 'Gx-5cbBzf5Y' }, { name: 'Tech Product Launch', videoId: 'Gx-5cbBzf5Y' } ] },
-            reels: { title: 'Reels', projects: [ { name: 'Explainer Video', videoId: 'Gx-5cbBzf5Y' }, { name: 'Logo Animation Showcase', videoId: 'Gx-5cbBzf5Y' }, { name: 'Broadcast Graphics Package', videoId: 'Gx-5cbBzf5Y' }, { name: 'UI/UX Animation', videoId: 'Gx-5cbBzf5Y' } ] },
-            filmmaking: { title: 'Film Making', projects: [ { name: 'Sci-Fi Short Film', videoId: 'Gx-5cbBzf5Y' }, { name: 'Corporate Culture Film', videoId: 'Gx-5cbBzf5Y' }, { name: 'Music Video', videoId: 'Gx-5cbBzf5Y' }, { name: 'Event Aftermovie', videoId: 'Gx-5cbBzf5Y' } ] }
-        };
-        const modal = document.getElementById('portfolio-modal');
-        const modalBody = document.getElementById('modal-body');
-        document.querySelectorAll('.work-card[data-category]').forEach(card => {
-            card.addEventListener('click', () => {
-                const category = card.dataset.category;
-                const data = portfolioData[category];
-                let projectsHtml = '';
-                if (category === 'reels') {
-                    projectsHtml = `<div class="grid grid-cols-2 sm:grid-cols-4 gap-4">${data.projects.map(p => `<div class="mt-4"><div class="video-reel-container mx-auto" style="width: 180px; height: 320px;"><iframe src="https://www.youtube.com/embed/${p.videoId}?controls=1&rel=0" frameborder="0" allowfullscreen></iframe></div><h4 class="text-lg font-bold text-purple-300 mt-2 font-heading">${p.name}</h4></div>`).join('')}</div>`;
-                } else {
-                    projectsHtml = `<div class="grid grid-cols-1 sm:grid-cols-2 gap-6">${data.projects.map(p => `<div class="mt-4"><div class="relative w-full" style="padding-bottom: 56.25%"><iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/embed/${p.videoId}?controls=1&rel=0" frameborder="0" allowfullscreen></iframe></div><h4 class="text-lg font-bold text-purple-300 mt-2 font-heading">${p.name}</h4></div>`).join('')}</div>`;
-                }
-                modalBody.innerHTML = `<h2 class="text-3xl font-bold mb-4 font-heading">${data.title}</h2>${projectsHtml}`;
-                modal.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            });
-        });
-        function closeModal() { modal.classList.remove('active'); document.body.style.overflow = 'auto'; }
-        document.querySelector('.modal-close-btn').addEventListener('click', closeModal);
-        modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
-
-        // --- FAQ Accordion Logic ---
-        const faqItems = document.querySelectorAll('.faq-item');
-        faqItems.forEach(item => {
-            const question = item.querySelector('.faq-question');
-            question.addEventListener('click', () => {
-                const wasActive = item.classList.contains('active');
-                faqItems.forEach(i => i.classList.remove('active'));
-                if (!wasActive) {
-                    item.classList.add('active');
-                }
-            });
-        });
-
-        // --- Theme & Language Logic ---
-        const themeToggle = document.getElementById('theme-toggle');
-        const sunIcon = document.getElementById('theme-icon-sun');
-        const moonIcon = document.getElementById('theme-icon-moon');
-        const langToggle = document.getElementById('lang-toggle');
-        const welcomeModal = document.getElementById('welcome-modal');
-        let currentLang, currentTheme;
-
-        function applyTheme(theme) {
-            document.body.classList.toggle('light-theme', theme === 'light');
-            sunIcon.classList.toggle('hidden', theme !== 'light');
-            moonIcon.classList.toggle('hidden', theme === 'light');
-            localStorage.setItem('theme', theme);
-            currentTheme = theme;
-            updateStarColor();
-        }
-
-        function applyLanguage(lang) {
-            document.documentElement.lang = lang;
-            document.body.classList.toggle('lang-bn', lang === 'bn');
-            
-            document.querySelectorAll('[data-lang]').forEach(el => {
-                const key = el.dataset.lang;
-                if (translations[lang] && translations[lang][key]) {
-                    el.innerHTML = translations[lang][key];
-                }
-            });
-
-            langToggle.textContent = lang === 'en' ? 'BN' : 'EN';
-            localStorage.setItem('lang', lang);
-            currentLang = lang;
-        }
-
-        themeToggle.addEventListener('click', () => {
-            const newTheme = document.body.classList.contains('light-theme') ? 'dark' : 'light';
-            applyTheme(newTheme);
-        });
-
-        langToggle.addEventListener('click', () => {
-            const newLang = currentLang === 'en' ? 'bn' : 'en';
-            applyLanguage(newLang);
-        });
-
-        // --- Welcome Modal Logic ---
-        const preferencesSet = localStorage.getItem('preferencesSet');
-        if (!preferencesSet) {
-            welcomeModal.style.display = 'flex';
-            let selectedLang = 'en';
-            let selectedTheme = 'dark';
-
-            document.querySelector('[data-lang-pref="en"]').classList.add('selected');
-            document.querySelector('[data-theme-pref="dark"]').classList.add('selected');
-
-            function translateModal(lang) {
-                document.querySelectorAll('[data-lang-modal]').forEach(el => {
-                    const key = el.dataset.langModal;
-                    if (modalTranslations[lang] && modalTranslations[lang][key]) {
-                        el.innerHTML = modalTranslations[lang][key];
+            // --- Basic Setup & Navigation ---
+            mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    if (!mobileMenu.classList.contains('hidden')) mobileMenu.classList.add('hidden');
+                    const targetElement = document.querySelector(this.getAttribute('href'));
+                    if(targetElement) {
+                        targetElement.scrollIntoView({ behavior: 'smooth' });
                     }
                 });
-            }
+            });
 
-            welcomeModal.querySelectorAll('[data-lang-pref]').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    welcomeModal.querySelectorAll('[data-lang-pref]').forEach(b => b.classList.remove('selected'));
-                    btn.classList.add('selected');
-                    selectedLang = btn.dataset.langPref;
-                    translateModal(selectedLang);
+            // --- Animation Observers ---
+            const animatedElements = document.querySelectorAll('.animatable');
+            const animationObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    const target = entry.target;
+                    if (entry.isIntersecting) {
+                        target.style.animationDelay = target.style.getPropertyValue('--delay') || '0ms';
+                        target.classList.remove('animate-flip-out');
+                        target.classList.add('animate-flip-in');
+                    } else {
+                        target.classList.remove('animate-flip-in');
+                        target.classList.add('animate-flip-out');
+                    }
+                });
+            }, { threshold: 0.2, rootMargin: "0px 0px -50px 0px" });
+            animatedElements.forEach(element => animationObserver.observe(element));
+
+            const scrollRevealElements = document.querySelectorAll('.scroll-reveal');
+            const scrollObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    entry.target.classList.toggle('visible', entry.isIntersecting);
+                });
+            }, { threshold: 0.15 });
+            scrollRevealElements.forEach(element => scrollObserver.observe(element));
+
+            // --- Testimonial Carousel ---
+            const slides = document.querySelectorAll('.testimonial-slide');
+            let currentSlide = 0;
+            let isAnimating = false;
+            function showSlide(index) {
+                if (isAnimating || index === currentSlide) return;
+                isAnimating = true;
+                const oldSlide = slides[currentSlide];
+                const newSlide = slides[index];
+                const oldReel = oldSlide.querySelector('.video-reel-container');
+                const newReel = newSlide.querySelector('.video-reel-container');
+                oldReel.classList.remove('animate-flip-in');
+                oldReel.classList.add('animate-flip-out');
+                oldReel.addEventListener('animationend', () => {
+                    oldSlide.classList.remove('active');
+                    newSlide.classList.add('active');
+                    newReel.classList.remove('animate-flip-out');
+                    newReel.classList.add('animate-flip-in');
+                    isAnimating = false;
+                }, { once: true });
+                currentSlide = index;
+            }
+            document.getElementById('prev-testimonial').addEventListener('click', () => showSlide((currentSlide - 1 + slides.length) % slides.length));
+            document.getElementById('next-testimonial').addEventListener('click', () => showSlide((currentSlide + 1) % slides.length));
+
+            // --- Portfolio Modal Logic ---
+            const modal = document.getElementById('portfolio-modal');
+            const modalBody = document.getElementById('modal-body');
+            document.querySelectorAll('.work-card[data-category]').forEach(card => {
+                card.addEventListener('click', () => {
+                    const category = card.dataset.category;
+                    const data = portfolioData[category];
+                    let projectsHtml = '';
+                    if (category === 'reels') {
+                        projectsHtml = `<div class="grid grid-cols-2 sm:grid-cols-4 gap-4">${data.projects.map(p => `<div class="mt-4"><div class="video-reel-container mx-auto" style="width: 180px; height: 320px;"><iframe src="https://www.youtube.com/embed/${p.videoId}?controls=1&rel=0" frameborder="0" allowfullscreen></iframe></div><h4 class="text-lg font-bold text-purple-300 mt-2 font-heading">${p.name}</h4></div>`).join('')}</div>`;
+                    } else {
+                        projectsHtml = `<div class="grid grid-cols-1 sm:grid-cols-2 gap-6">${data.projects.map(p => `<div class="mt-4"><div class="relative w-full" style="padding-bottom: 56.25%"><iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/embed/${p.videoId}?controls=1&rel=0" frameborder="0" allowfullscreen></iframe></div><h4 class="text-lg font-bold text-purple-300 mt-2 font-heading">${p.name}</h4></div>`).join('')}</div>`;
+                    }
+                    modalBody.innerHTML = `<h2 class="text-3xl font-bold mb-4 font-heading">${data.title}</h2>${projectsHtml}`;
+                    modal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                });
+            });
+            function closeModal() {
+                modal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+                modalBody.innerHTML = ''; // Clear content to stop videos
+            }
+            document.querySelector('.modal-close-btn').addEventListener('click', closeModal);
+            modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+
+            // --- FAQ Accordion ---
+            document.querySelectorAll('.faq-item').forEach(item => {
+                const question = item.querySelector('.faq-question');
+                question.addEventListener('click', () => {
+                    const wasActive = item.classList.contains('active');
+                    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+                    if (!wasActive) item.classList.add('active');
                 });
             });
 
-            welcomeModal.querySelectorAll('[data-theme-pref]').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    welcomeModal.querySelectorAll('[data-theme-pref]').forEach(b => b.classList.remove('selected'));
-                    btn.classList.add('selected');
-                    selectedTheme = btn.dataset.themePref;
+            // --- Theme & Language Logic ---
+            function applyTheme(theme, fromInit = false) {
+                document.body.classList.toggle('light-theme', theme === 'light');
+                sunIcon.classList.toggle('hidden', theme !== 'light');
+                moonIcon.classList.toggle('hidden', theme === 'light');
+                if (!fromInit) localStorage.setItem('theme', theme);
+                currentTheme = theme;
+
+                // Destroy old Vanta effect if it exists
+                if (vantaEffect) {
+                    vantaEffect.destroy();
+                }
+
+                // Setup Vanta.js with theme-specific options
+                VANTA.CLOUDS({
+                  el: "#interactive-bg",
+                  mouseControls: true,
+                  touchControls: true,
+                  gyroControls: false,
+                  minHeight: 200.00,
+                  minWidth: 200.00,
+                  speed: 1.40,
+                  // --- THEME-AWARE COLORS ---
+                  skyColor: theme === 'light' ? 0xa1b2c3 : 0x121c2c,
+                  cloudColor: theme === 'light' ? 0xbabae1 : 0x3a4a6a,
+                  sunColor: theme === 'light' ? 0xff974b : 0x0, // No sun in dark mode
+                  sunGlareColor: theme === 'light' ? 0xe33300 : 0x0,
                 });
-            });
-
-            document.getElementById('save-preferences-btn').addEventListener('click', () => {
-                applyLanguage(selectedLang);
-                applyTheme(selectedTheme);
-                localStorage.setItem('preferencesSet', 'true');
-                welcomeModal.style.display = 'none';
-            });
-        } else {
-            const savedLang = localStorage.getItem('lang') || 'en';
-            const savedTheme = localStorage.getItem('theme') || 'dark';
-            applyLanguage(savedLang);
-            applyTheme(savedTheme);
-        }
-
-        // --- Interactive Three.js Background ---
-        let scene, camera, renderer, stars, starMaterial, mouse = new THREE.Vector2();
-        
-        function updateStarColor() {
-            const isLight = document.body.classList.contains('light-theme');
-            const newColor = isLight ? 0x374151 : 0xaaaaaa;
-            if (starMaterial) {
-                starMaterial.color.setHex(newColor);
             }
-        }
 
-        function init() {
-            scene = new THREE.Scene();
-            camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 1000);
-            camera.position.z = 5;
-            renderer = new THREE.WebGLRenderer({ canvas: document.getElementById("bg-canvas"), alpha: true });
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            const starCoords = [];
-            for (let i = 0; i < 8000; i++) { starCoords.push(Math.random()*2000-1000, Math.random()*2000-1000, Math.random()*2000-1000); }
-            const starGeo = new THREE.BufferGeometry();
-            starGeo.setAttribute('position', new THREE.Float32BufferAttribute(starCoords, 3));
-            starMaterial = new THREE.PointsMaterial({ color: 0xaaaaaa, size: 0.8, transparent: true, opacity: 0.8 });
-            updateStarColor();
-            stars = new THREE.Points(starGeo, starMaterial);
-            scene.add(stars);
-            window.addEventListener("resize", () => {
-                camera.aspect = window.innerWidth / window.innerHeight;
-                camera.updateProjectionMatrix();
-                renderer.setSize(window.innerWidth, window.innerHeight);
-            }, false);
-            document.addEventListener('mousemove', (e) => {
-                mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
-                mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
-            }, false);
-            animate();
-        }
-        function animate() {
-            camera.position.x += (mouse.x * 5 - camera.position.x) * 0.02;
-            camera.position.y += (-mouse.y * 5 - camera.position.y) * 0.02;
-            camera.lookAt(scene.position);
-            stars.rotation.y += 0.0001;
-            renderer.render(scene, camera);
-            requestAnimationFrame(animate);
-        }
-        window.onload = init;
+            function applyLanguage(lang, fromInit = false) {
+                document.documentElement.lang = lang;
+                document.body.classList.toggle('lang-bn', lang === 'bn');
+                document.querySelectorAll('[data-lang]').forEach(el => {
+                    const key = el.dataset.lang;
+                    if (translations[lang]?.[key]) el.innerHTML = translations[lang][key];
+                });
+                langToggle.textContent = lang === 'en' ? 'BN' : 'EN';
+                if (!fromInit) localStorage.setItem('lang', lang);
+                currentLang = lang;
+            }
+
+            themeToggle.addEventListener('click', () => applyTheme(document.body.classList.contains('light-theme') ? 'dark' : 'light'));
+            langToggle.addEventListener('click', () => applyLanguage(currentLang === 'en' ? 'bn' : 'en'));
+
+            // --- Welcome Modal & Initial Load ---
+            const preferencesSet = localStorage.getItem('preferencesSet');
+            if (!preferencesSet) {
+                welcomeModal.style.display = 'flex';
+                let selectedLang = 'en';
+                let selectedTheme = 'dark';
+                document.querySelector('[data-lang-pref="en"]').classList.add('selected');
+                document.querySelector('[data-theme-pref="dark"]').classList.add('selected');
+                
+                function translateModal(lang) {
+                    document.querySelectorAll('[data-lang-modal]').forEach(el => {
+                        const key = el.dataset.langModal;
+                        if (modalTranslations[lang]?.[key]) el.innerHTML = modalTranslations[lang][key];
+                    });
+                }
+
+                welcomeModal.querySelectorAll('[data-lang-pref]').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        welcomeModal.querySelectorAll('[data-lang-pref]').forEach(b => b.classList.remove('selected'));
+                        btn.classList.add('selected');
+                        selectedLang = btn.dataset.langPref;
+                        translateModal(selectedLang);
+                    });
+                });
+                welcomeModal.querySelectorAll('[data-theme-pref]').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        welcomeModal.querySelectorAll('[data-theme-pref]').forEach(b => b.classList.remove('selected'));
+                        btn.classList.add('selected');
+                        selectedTheme = btn.dataset.themePref;
+                    });
+                });
+                document.getElementById('save-preferences-btn').addEventListener('click', () => {
+                    applyLanguage(selectedLang);
+                    applyTheme(selectedTheme);
+                    localStorage.setItem('preferencesSet', 'true');
+                    welcomeModal.style.display = 'none';
+                });
+            } else {
+                applyLanguage(localStorage.getItem('lang') || 'en', true);
+                applyTheme(localStorage.getItem('theme') || 'dark', true);
+            }
+        });
     </script>
 </body>
 </html>
